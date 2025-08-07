@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+{% load static %}
+{% load product_tags %}
+
+
+{% block content %}
+<!--Контент на странице-->
+<section id="featured-books" class="py-5 my-5 mt-0">
+	<div class="container">
+
+		<!-- Filter -->
+<!-- Heading -->
+<div class="mb-5">
+  <div class="row align-items-center">
+
+    <div class="col-sm-auto">
+      <!-- Select -->
+			 
+			 <form action=""
+			  method='GET' id='sortForm'>	 
+				 <select class="form-select form-select-sm"
+				 name='sort_by' id='sortSelect'>
+				 <option value="" disabled {% if not request.GET.sort_by %}selected{% endif %} hidden>Фильтры</option>
+					 <option value="relevant"
+					 {% if request.GET.sort_by == 'relevant' %}selected{% endif %}>
+					 По умолчанию
+					</option>
+					 <option value="on_sale"
+					  {% if request.GET.sort_by == 'on_sale' %}selected{% endif %}>
+						Товары по акции
+					</option>
+					 <option value="HighestPrice"
+					  {% if request.GET.sort_by == 'HighestPrice' %}selected{% endif %}>
+						Цена: по убыванию
+					</option>
+					 <option value="LowestPrice"
+					  {% if request.GET.sort_by == 'LowestPrice' %}selected{% endif %}>
+						Цена: по возрастанию
+					</option>	
+					</select>
+				</form>
+      <!-- End Select -->
+    </div>
+    <!-- End Col -->
+  </div>
+  <!-- End Row -->
+</div>
+<!-- End Heading -->
+
+					<div class="section-header align-center">
+						<div class="title">
+							{% comment %} <span>
+								Воспользуйтесь своей возможностью</span> {% endcomment %}
+						</div>
+						<h2 class="section-title">{{ page_title }}</h2>
+					</div>
+
+					<div class="row">
+						<div class="col-md-12">
+							
+							<div class="product-list" data-aos="fade-up">
+								<div class="row">
+									{% for parfume in parfumes %}
+									<div class="col-md-3">
+										<div class="product-item">
+											<figure class="product-style">
+												<div class="product-image-container">
+													<a href="product.html"><img src="{{ parfume.image.url }}" alt="{{ parfume.name }}" class="product-item"></a>
+												</div>
+												<figcaption>
+													<a href="#" class='text-decoration-none mb-0'>
+														<h3 class='mb-0'>{{ parfume.name }}</h3>
+													</a>
+													<span>{{ parfume.brand_name }}</span>
+													<div class="item-price">{{ parfume.price }} m.</div>
+												</figcaption>
+											</div>
+										</div>
+										{% endfor %}
+
+										
+															
+								</div><!--row-->
+							</div><!--product-list-->
+
+							
+						</div><!--col-->
+					</div>
+					
+					<!-- Пагинация автоматически доступна -->
+					{% if is_paginated %}
+					<nav aria-label="Page navigation">
+							<ul class="pagination">
+									{% with request.GET.urlencode as querystring %}
+									{% with querystring|cut:"page=" as qs_no_page %}
+									{% if page_obj.has_previous %}
+									<li class="page-item page-text">
+										<a class="page-link" href="?page={{ page_obj.previous_page_number }}
+										{% if qs_no_page %}&{{ qs_no_page }}{% endif %}">
+											Previous
+										</a>
+									</li>
+									{% else %}
+									<li class="page-item disabled page-text">
+										<a class="page-link" href="#">Previous</a>
+											</li>
+									{% endif %}
+									{% endwith %}
+									{% endwith %}
+									
+									{% with request.GET.urlencode as querystring %}
+									{% for num in paginator.page_range %}
+									<li class="page-item {% if page_obj.number == num %}active{% endif %}">
+										<a class="page-link" href="?page={{ num }}
+										{% if querystring %}&{{ querystring }}{% endif %}
+										">{{ num }}</a>
+									</li>
+									{% endfor %}
+									{% endwith %}
+									
+									{% with request.GET.urlencode as querystring %}
+									{% with querystring|cut:"page=" as qs_no_page %}
+									{% if page_obj.has_next %}
+									<li class="page-item" page-text>
+										<a class="page-link" href="?page={{ page_obj.next_page_number }}
+										{% if qs_no_page %}&{{ qs_no_page }}{% endif %}">
+										Next
+									</a>
+									</li>
+									{% else %}
+									<li class="page-item disabled page-text">
+													<a class="page-link" href="#">Next</a>
+											</li>
+									{% endif %}
+									{% endwith %}
+									{% endwith %}
+							</ul>
+					</nav>
+					{% endif %}	
+					<div class="row">
+							<div class="col-md-12">
+								<div class="btn-wrap align-right">
+									{% tag_all_categories as categories %}
+									{% for category in categories %}
+									<a href="{% url "catalog:catalog" category.slug %}" class="btn-accent-arrow">Показать все <i class="icon icon-ns-arrow-right"></i></a>
+									{% endfor %}
+                </div>
+							</div>
+						</div>
+					</div>
+				</section>
+				<!--Контент на странице закончился-->
+{% endblock  %}
+				

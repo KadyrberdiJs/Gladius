@@ -1,0 +1,416 @@
+{% load static %}
+{% load product_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Gladius-Parfumes</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="author" content="">
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+
+	<link rel="stylesheet" href="{% static "css/bootstrap/bootstrap.min.css" %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'icomoon/icomoon.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/vendor.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/icons/Gladius-icon.png' %}">
+
+</head>
+
+<body style="background-color: #F7F5F1 !important;" data-bs-spy="scroll" data-bs-target="#header" tabindex="0">
+
+	<div id="header-wrap">
+
+		<div class="top-content">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-6">
+					</div>
+					<div class="col-md-6">
+						<div class="right-element">
+							<a href="login.html" class="user-account for-buy"><i
+									class="icon icon-user"></i><span></span></a>
+							<a href="cart.html" class="cart for-buy"><i class="icon icon-clipboard">
+							</i><span>
+								(0 $)</span></a>
+
+							<div class="action-menu">
+
+								<div class="search-bar">
+									<a href="#" class="search-button search-toggle" data-selector="#header-wrap">
+										<i class="icon icon-search"></i>
+									</a>
+									<form role="search" method="get" class="search-box">
+										<input class="search-field text search-input" placeholder="Search"
+											type="search" name='search'>
+									</form>
+								</div>
+							</div>
+
+						</div><!--top-right-->
+					</div>
+
+				</div>
+			</div>
+		</div><!--top-content-->
+
+		<header id="header" class="py-0">
+			<div class="container-fluid">
+				<div class="row">
+
+					<div class="col-md-2">
+						<div class="main-logo d-flex align-items-center">
+							<a href="{% url "main:index" %}" class="text-decoration-none d-flex align-items-center">
+								<img class="logo-img me-2" src={% static "images/icons/Gladius-icon.png" %} alt="logo">
+								<span class="fs-2">Gladius</span>
+							</a>
+						</div>
+					</div>
+
+					<div class="col-md-10">
+
+						<nav id="navbar">
+							<div class="main-menu stellarnav">
+								<ul class="menu-list">
+									{% tag_categories as categories %}
+									{% for category in categories %}
+									<li class="menu-item"><a href="{% url "catalog:catalog" category.slug %}"
+										 class="nav-link mt-2">{{ category.name }}</a></li>
+									{% endfor %}
+								</ul>
+
+								<div class="hamburger">
+									<span class="bar"></span>
+									<span class="bar"></span>
+									<span class="bar"></span>
+								</div>
+
+							</div>
+						</nav>
+
+					</div>
+
+				</div>
+			</div>
+		</header>
+
+	</div><!--header-wrap-->
+
+{% block content %}
+	<!--Контент на странице-->
+	<section id="billboard">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+
+					<button class="prev slick-arrow">
+						<i class="icon icon-arrow-left"></i>
+					</button>
+
+					<div class="main-slider pattern-overlay">
+						{% for banner in hero_parfume %}
+						<div class="slider-item">
+							<div class="banner-content">
+								<h2 class="banner-title">{{ banner.name }}</h2>
+								<p>{{ banner.description }}</p>
+								<div class="btn-wrap">
+									<a href="#" class="btn btn-outline-accent btn-accent-arrow">Читать больше<i
+											class="icon icon-ns-arrow-right"></i></a>
+								</div>
+							</div><!--banner-content-->
+							<img src="{{ banner.image }}" alt="banner" class="banner-image">
+						</div><!--slider-item-->
+						{% endfor %}
+
+						
+
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+
+<section id="featured-books" class="py-5 my-5 mt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-header align-center">
+                    <div class="title">
+                        <span>Some quality items</span>
+                    </div>
+                    <h2 class="section-title">Featured Fragrances</h2>
+                </div>
+
+                <div class="product-list" data-aos="fade-up">
+                    <div class="row">
+                        {% for parfume in featured_parfumes %}
+                        <div class="col-md-3">
+                            <div class="product-item">
+                                <figure class="product-style">
+                                    <div class="product-image-container">
+                                        <img src="{{ parfume.image }}" alt="{{ parfune.name }}" class="product-item">
+                                    </div>
+                                </figure>
+                                <figcaption>
+                                    <h3>{{ parfume.name }}</h3>
+                                    <span>{{ parfume.brand }}</span>
+                                    <div class="item-price">{{ parfume.price }}</div>
+                                </figcaption>
+                            </div>
+                        </div>
+												{% endfor %}
+
+                    </div><!--row-->
+                </div><!--product-list-->
+
+            </div><!--col-->
+        </div>
+
+        <div class="row">
+							<div class="col-md-12">
+								<div class="btn-wrap align-right">
+									{% tag_all_categories as categories %}
+									{% for category in categories %}
+									<a href="{% url "catalog:catalog" category.slug %}" class="btn-accent-arrow">Показать все <i class="icon icon-ns-arrow-right"></i></a>
+									{% endfor %}
+                </div>
+							</div>
+						</div>
+					</div>
+    </div>
+</section>
+
+	<section id="best-selling" class="leaf-pattern-overlay mb-5">
+		<div class="corner-pattern-overlay"></div>
+		<div class="container">
+			<div class="row justify-content-center">
+
+				<div class="col-md-8">
+
+					<div class="row">
+
+						<div class="col-md-6">
+							
+								<img src={% static "images/imagination.avif" %} alt="book" class="single-image"
+								style="border-radius: 50px;">
+							
+						</div>
+
+						<div class="col-md-6">
+							<div class="product-entry">
+								<h2 class="section-title divider mb-3">Самый продоваемый парфюм</h2>
+
+								<div class="products-content">
+									<div class="author-name">Jacques Cavallier Belletrud</div>
+									<h3 class="item-title">LV Imagination</h3>
+									<p>Louis Vuitton Imagination — это чувственный, современный аромат с нотами амброксана, благородных цитрусовых и чёрного чая из Китая .</p>
+									<div class="item-price">$ 45.00</div>
+									<div class="btn-wrap">
+										<a href="#" class="btn-accent-arrow">Купить сейчас <i
+												class="icon icon-ns-arrow-right"></i></a>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+					<!-- / row -->
+
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+		
+	</section> 
+
+	<section id="quotation" class="align-center pb-5 mb-5">
+		<div class="inner-content">
+			<h2 class="section-title divider">Цитата дня</h2>
+			<blockquote data-aos="fade-up">
+				<q>“Итак, видите ли, духи — это не просто аксессуар. Это не платье. Это не высокая мода. Это нечто большее. Это то, что вы сохраните навсегда, и оно раскрывает тайную часть вашей личности.”</q>
+				<div class="author-name">-Жак Кавалье</div>
+			</blockquote>
+		</div>
+	</section>
+
+	<section id="special-offer" class="bookshelf pb-5 mb-5">
+
+		<div class="section-header align-center">
+			<div class="title">
+				<span>
+					Воспользуйтесь своей возможностью</span>
+			</div>
+			<h2 class="section-title">Духи со скидкой</h2>
+		</div>
+
+		<div class="product-list" data-aos="fade-up">
+			<div class="row">
+					
+					<div class="col-md-3">
+							<div class="product-item">
+									<figure class="product-style">
+											<div class="product-image-container">
+													<img src={% static "images/parfumes/Chanel Bleu De Chanel.png" %} alt="Bleu De Chanel" class="product-item">
+											</div>
+											<button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to Cart</button>
+									</figure>
+									<figcaption>
+											<h3>Bleu De Chanel</h3>
+											<span>Chanel</span>
+											<strong>
+												<p><s>250</s> $</p>
+											</strong><div class="item-price">$ 100.00</div>
+									</figcaption>
+							</div>
+					</div>
+
+					<div class="col-md-3">
+							<div class="product-item">
+									<figure class="product-style">
+											<div class="product-image-container">
+													<img src={% static "images/parfumes/creed-aventus.png" %} alt="Creed Aventus" class="product-item">
+											</div>
+											<button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to Cart</button>
+									</figure>
+									<figcaption>
+											<h3>Creed Aventus</h3>
+											<span>Creed</span>
+											<strong>
+												<p><s>500</s> $</p>
+											</strong>
+											<div class="item-price">$ 350.00</div>
+									</figcaption>
+							</div>
+					</div>
+
+					<div class="col-md-3">
+							<div class="product-item">
+									<figure class="product-style">
+											<div class="product-image-container">
+													<img src={% static "images/parfumes/creed-aventus.png" %} alt="Creed Aventus" class="product-item">
+											</div>
+											<button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to Cart</button>
+									</figure>
+									<figcaption>
+											<h3>Creed Aventus</h3>
+											<span>Creed</span>
+											<strong>
+												<p><s>500</s> $</p>
+											</strong>
+											<div class="item-price">$ 350.00</div>
+									</figcaption>
+							</div>
+					</div>
+			</div>
+		</div>
+					
+
+		
+	</section>
+
+	<section id="subscribe">
+		<div class="container">
+			<div class="row justify-content-center">
+
+				<div class="col-md-8">
+					<div class="row">
+
+						<div class="col-md-6">
+
+							<div class="title-element">
+								<h2 class="section-title divider">Subscribe to our newsletter</h2>
+							</div>
+
+						</div>
+						<div class="col-md-6">
+
+							<div class="subscribe-content" data-aos="fade-up">
+								<p>Sed eu feugiat amet, libero ipsum enim pharetra hac dolor sit amet, consectetur. Elit
+									adipiscing enim pharetra hac.</p>
+								<form id="form">
+									<input type="text" name="email" placeholder="Enter your email addresss here">
+									<button class="btn-subscribe">
+										<span>send</span>
+										<i class="icon icon-send"></i>
+									</button>
+								</form>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!--Контент на странице закончился-->
+{% endblock  %}
+
+
+
+	
+
+	<div id="footer-bottom">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+
+					<div class="copyright">
+						<div class="row">
+
+							<div class="col-md-6">
+								<p>© 2022 All rights reserved. Free HTML Template by <a
+										href="https://www.templatesjungle.com/" target="_blank">TemplatesJungle</a></p>
+							</div>
+
+							<div class="col-md-6">
+								<div class="social-links align-right">
+									<ul>
+										<li>
+											<a href="#"><i class="icon icon-facebook"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="icon icon-twitter"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="icon icon-youtube-play"></i></a>
+										</li>
+										<li>
+											<a href="#"><i class="icon icon-behance-square"></i></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+
+						</div>
+					</div><!--grid-->
+
+				</div><!--footer-bottom-content-->
+			</div>
+		</div>
+	</div>
+
+	<script src={% static "js/jquery-1.11.0.min.js" %}></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous"></script>
+	<script src={% static "js/plugins.js" %}></script>
+	<script src={% static "js/script.js" %}></script>
+
+</body>
+
+</html>

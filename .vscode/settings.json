@@ -1,0 +1,54 @@
+{
+  "git.autoRepositoryDetection": "subFolders",
+  "breadcrumbs.enabled": true,
+
+  "debug.autoExpandLazyVariables": "on",
+
+
+  "python.languageServer": "Pylance",
+  "python.analysis.typeCheckingMode": "off",
+  "python.analysis.diagnosticMode": "openFilesOnly",
+  "python.analysis.autoSearchPaths": true,
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.completeFunctionParens": true,
+  "python.analysis.inlayHints.variableTypes": false,
+  "python.analysis.inlayHints.functionReturnTypes": false,
+  "python.analysis.importFormat": "absolute",
+  "python.analysis.enablePytestSupport": true,
+  "python.analysis.indexing": true,
+  "python.analysis.packageIndexDepths": [
+      {
+          "name": "django",
+          "depth": 3,
+          "includeAllSymbols": true
+      }
+  ],
+    
+  "[python]": {
+      "editor.defaultFormatter": "ms-python.black-formatter"
+  },
+  "emmet.includeLanguages": {
+      "django-html": "html"
+  },
+  "files.associations": {
+      "**/templates/**/*.html": "django-html",
+      "**/*.html": "html",
+      "**/templates/*": "django-txt",
+      "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+  },
+  "django.snippets.exclude": [
+      "cms",
+      "wagtail"
+  ],
+
+  "[django-html]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "breadcrumbs.showClasses": true,
+      "editor.quickSuggestions": {
+          "other": true,
+          "comments": true,
+          "strings": true
+      }
+},
+"liveServer.settings.multiRootWorkspaceName": "app"
+}
