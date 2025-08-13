@@ -37,6 +37,20 @@ class Product(models.Model):
                                 related_name='products',
                                 verbose_name='Категория')
    
+  #  SIZE_CHOICES = [
+  #    ('10ml','10ml')
+  #    ('20ml','20ml')
+  #    ('30ml','30ml')
+  #    ('50ml','50ml')
+  #  ]
+  #  available_sizes = models.CharField(
+  #    max_length=10,
+  #    choices=SIZE_CHOICES,
+  #    default = '10ml'
+  #  )
+
+
+   
    is_active = models.BooleanField(default=True)
    is_featured = models.BooleanField(default=False)
 

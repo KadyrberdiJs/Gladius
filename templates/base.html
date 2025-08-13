@@ -36,19 +36,22 @@
 					</div>
 					<div class="col-md-6">
 						<div class="right-element">
-							<a href="login.html" class="user-account for-buy"><i
-									class="icon icon-user"></i><span></span></a>
-							<a href="cart.html" class="cart for-buy"><i class="icon icon-clipboard">
-							</i><span>
-								(0 $)</span></a>
-
-							<div class="action-menu">
-
-								<div class="search-bar">
-									<a href="#" class="search-button search-toggle" data-selector="#header-wrap">
-										<i class="icon icon-search"></i>
-									</a>
-									<form role="search" method="get" class="search-box">
+							{% if user.is_authenticated %}
+							<a href="{% url "user:profile" %}" class="user-account for-buy"><i
+								class="icon icon-user"></i><span></span></a>
+								<a href="cart.html" class="cart for-buy"><i class="icon icon-clipboard">
+								</i><span>
+									(0 $)</span></a>
+									{% else %}
+									<a href="{% url "user:login" %}" class="">Войти</i>
+										{% endif %}
+										<div class="action-menu">
+									
+										<div class="search-bar">
+											<a href="#" class="search-button search-toggle" data-selector="#header-wrap">
+												<i class="icon icon-search"></i>
+											</a>
+									<form role="search" method="get" action='{% url "catalog:search" %}' class="search-box">
 										<input class="search-field text search-input" placeholder="Search"
 											type="search" name='search'>
 									</form>
@@ -361,10 +364,9 @@
 {% endblock  %}
 
 
-
 	
 
-	<div id="footer-bottom">
+	{% comment %} <div id="footer-bottom">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -373,8 +375,7 @@
 						<div class="row">
 
 							<div class="col-md-6">
-								<p>© 2022 All rights reserved. Free HTML Template by <a
-										href="https://www.templatesjungle.com/" target="_blank">TemplatesJungle</a></p>
+								
 							</div>
 
 							<div class="col-md-6">
@@ -402,7 +403,27 @@
 				</div><!--footer-bottom-content-->
 			</div>
 		</div>
-	</div>
+	</div> {% endcomment %}
+
+	<!-- Footer Bottom -->
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="logo">
+                        <!-- Replace with actual logo image or SVG -->
+                        <span style="font-family: 'cursive'; font-size: 1.5rem;">Gladius</span>
+                    </div>
+                    <p>© Gladius S.p.A 2025 VAT Number 01614000027 | Gladius Official Online Store United Kingdom</p>
+                    <p>Turkmenistan</p>
+										<p>© 2022 All rights reserved. Free HTML Template by <a
+										href="https://www.templatesjungle.com/" target="_blank">TemplatesJungle</a></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 	<script src={% static "js/jquery-1.11.0.min.js" %}></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"

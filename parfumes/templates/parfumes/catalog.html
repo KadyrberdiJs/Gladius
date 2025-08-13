@@ -65,10 +65,10 @@
 										<div class="product-item">
 											<figure class="product-style">
 												<div class="product-image-container">
-													<a href="product.html"><img src="{{ parfume.image.url }}" alt="{{ parfume.name }}" class="product-item"></a>
+													<a href="{% url "catalog:product" parfume.slug %}"><img src="{{ parfume.image.url }}" alt="{{ parfume.name }}" class="product-item"></a>
 												</div>
 												<figcaption>
-													<a href="#" class='text-decoration-none mb-0'>
+													<a href="{% url "catalog:product" parfume.slug %}" class='text-decoration-none mb-0'>
 														<h3 class='mb-0'>{{ parfume.name }}</h3>
 													</a>
 													<span>{{ parfume.brand_name }}</span>

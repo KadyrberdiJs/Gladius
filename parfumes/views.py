@@ -1,7 +1,8 @@
+from gc import get_objects
 from os import name
 from urllib import request
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import DetailView, ListView
 from django.db.models import Q  
 
 from parfumes.models import Product, Category
@@ -72,5 +73,18 @@ class CatalogView(ListView):
       return context
   
 
+class ProductView(DetailView):
 
-  
+    template_name = 'parfumes/product.html'
+    slug_url_kwarg = 'product_slug'
+    context_object_name = 'parfume'
+    
+    def get_object(self, queryset = None):
+        parfume = Product.objects.get(slug=self.kwargs.get(self.slug_url_kwarg))
+        return parfume
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = self.object.name
+        return context
+    

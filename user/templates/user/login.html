@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container my-5">
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+      <div class="card login-card p-5 w-100">
+        <div class="text-center mb-4">
+          <h3 class="login-title">Вход</h3>
+        </div>
+        <form action='{% url "user:login" %}' method='post'>
+          {% csrf_token %}
+          {% if request.GET.next %}
+            <input type="hidden" name='next' value="{{ request.GET.next }}">
+          {% endif %}
+          <div class="mb-3">
+            <label for="username" class="form-label">Имя пользователя</label>
+            <input type="text" class="form-control" name="username" id="username" placeholder="Введите имя пользователя" 
+            value="{% if form.username.value %}{{ form.username.value }}{% endif %}"
+            required>
+          </div>
+          <div class="mb-4">
+            <label for="password" class="form-label">Пароль</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Введите пароль" required>
+          </div>
+          <div class="d-grid mb-3 d-flex justify-content-center align-items-center">
+            <button type="submit" class="btn btn-dark-custom text-white">Войти</button>
+          </div>
+        </form>
+        <div class="text-center mt-3">
+          <span>Нет аккаунта? <a href="{% url "user:register" %}"><strong>Зарегистрируйтесь</strong></a></span>
+        </div>
+      </div>
+    </div>
+</div>
+
+{% endblock  %}

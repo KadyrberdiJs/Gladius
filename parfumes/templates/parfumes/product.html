@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section>
+  <div class="product-container product-flex">
+    <div class="product-left">
+      <div class="main_image">
+        <img src="{{ parfume.image.url }}" class="slide product-img">
+      </div>
+    </div>
+    <div class="product-right">
+      <h3 class="product-name">{{parfume.name}}</h3>
+      <h4 style="color: gray;"> <small>m. </small>{{ parfume.price }} </h4>
+      <p class="product-description">
+        {{ parfume.description }}
+      </p>
+			<div style="display: flex; align-items: center; margin-bottom: 20px;">
+				<h4 style="margin: 0 8px 0 0;">Тип:</h4><p style="margin: 0;">{{ parfume.category }}</p>
+			</div>
+      
+
+    <form action="{% url "cart:add_to_cart" 1%}" method='post'>
+      {% csrf_token %}
+      <label>Выбери объем (ml):</label>
+      <select class="ml_size d-flex" name="ml_size" required>
+        <option value="">Выбери...</option>
+        <option value="10">10ml</option>
+        <option value="20">20ml</option>
+        <option value="30">30ml</option>
+        <option value="50">50ml</option>
+      </select>
+      
+      <div class="quantity-container">
+        <h5 class="quantity-title">Количество:</h5>
+        <div class="quantity-picker">
+          <button type="button" class="btn-decrease">-</button>
+          <input
+            type="number"
+            name="quantity"
+            id="quantity-input"
+            value="1"
+            min="1"
+            readonly
+          >
+          <button type="button" class="btn-increase">+</button>
+        </div>
+      </div>
+      
+    </form>
+
+      <button class="product-button">В корзину</button>
+    </div>
+  </div>
+</section>
+
+{% endblock  %}
