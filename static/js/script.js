@@ -145,3 +145,4 @@ document.getElementById('sortSelect').addEventListener('change', function() {
     // When someone selects a different option, automatically submit the form
     document.getElementById('sortForm').submit();
 });
+

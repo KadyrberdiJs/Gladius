@@ -21,7 +21,7 @@
 			</div>
       
 
-    <form action="{% url "cart:add_to_cart" 1%}" method='post'>
+    <form action="" method='post'>
       {% csrf_token %}
       <label>Выбери объем (ml):</label>
       <select class="ml_size d-flex" name="ml_size" required>

@@ -60,7 +60,7 @@ class UserRegisterView(CreateView):
        return context
 
 
-class UserProfileView(LoginRequiredMixin,UpdateView):
+class UserProfileView(LoginRequiredMixin,UpdateView,):
    template_name = 'user/profile.html'
    form_class = ProfileForm
    success_url = reverse_lazy("user:profile")

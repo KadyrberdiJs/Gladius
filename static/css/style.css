@@ -3251,3 +3251,43 @@ small {
 .footer a:hover {
     text-decoration: underline;
 }
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    background: white;
+    color: #9D5248;
+    border-radius: 8px;
+    border: 1px solid #9D5248;
+    font-weight: 500;
+    transition: background 0.7s;
+}
+.custom-file-upload:hover {
+    background: #9D5248;
+    color: white;
+}
+#id_image {
+    display: none; /* hide the real file input */
+}
+.luxury-select {
+    border: 1px solid #9D5248; /* luxurious border */
+    color: #9D5248;            /* text color */
+    font-weight: 500;           /* medium weight for elegance */
+    font-family: "Playfair Display", serif;
+    border-radius: 8px;         /* smooth rounded corners */
+    padding: 0.35rem 0.75rem;   /* minimal padding */
+    background-color: #fff;     /* clean background */
+    transition: all 0.3s ease; /* smooth hover/focus */
+}
+
+.luxury-select:focus {
+    outline: none;
+    border-color: #6b3733;      /* slightly darker shade on focus */
+    box-shadow: 0 0 5px rgba(157, 82, 72, 0.5);
+}
+
+.luxury-select option {
+    color: #333;                /* readable option text */
+    background-color: #fff;
+}

@@ -107,7 +107,9 @@
 
 	</div><!--header-wrap-->
 
+{% include "includes/alert.html" %}
 {% block content %}
+
 	<!--Контент на странице-->
 	<section id="billboard">
 
@@ -431,6 +433,7 @@
 		crossorigin="anonymous"></script>
 	<script src={% static "js/plugins.js" %}></script>
 	<script src={% static "js/script.js" %}></script>
+	<script src={% static "js/alert.js" %}></script>
 
 </body>
 
