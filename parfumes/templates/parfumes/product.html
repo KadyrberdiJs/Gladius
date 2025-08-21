@@ -15,42 +15,42 @@
       <h4 style="color: gray;"> <small>m. </small>{{ parfume.price }} </h4>
       <p class="product-description">
         {{ parfume.description }}
-      </p>
+      </p>            
 			<div style="display: flex; align-items: center; margin-bottom: 20px;">
 				<h4 style="margin: 0 8px 0 0;">Тип:</h4><p style="margin: 0;">{{ parfume.category }}</p>
 			</div>
       
 
-    <form action="" method='post'>
+    <form action="{% url "cart:add_to_cart" product_id=parfume.id %}" method='post'>
       {% csrf_token %}
       <label>Выбери объем (ml):</label>
       <select class="ml_size d-flex" name="ml_size" required>
         <option value="">Выбери...</option>
-        <option value="10">10ml</option>
-        <option value="20">20ml</option>
-        <option value="30">30ml</option>
-        <option value="50">50ml</option>
+        {% for variant in parfume.variants.all %}
+          <option value="{{ variant.size_ml }}" data-price="{{ variant.price }}">
+            {{ variant.get_size_ml_display }}
+          </option>
+        {% endfor %}
       </select>
       
       <div class="quantity-container">
         <h5 class="quantity-title">Количество:</h5>
         <div class="quantity-picker">
           <button type="button" class="btn-decrease">-</button>
-          <input
+          <input         
             type="number"
             name="quantity"
             id="quantity-input"
-            value="1"
+            value="1"          
             min="1"
-            readonly
-          >
+          >        
           <button type="button" class="btn-increase">+</button>
         </div>
       </div>
       
+      <button type="submit" class="product-button">В корзину</button>
     </form>
 
-      <button class="product-button">В корзину</button>
     </div>
   </div>
 </section>

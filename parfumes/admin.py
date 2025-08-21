@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from parfumes.models import Category, Product
+from parfumes.models import Category, Product, ProductVariant
 
 
 @admin.register(Category)
@@ -21,7 +21,13 @@ class ProductAdmin(admin.ModelAdmin):
           "fields": ('name', 'slug', 'description','category', 'image', 'price', 'discount'),
       }),
       ('Details', {
-        "fields": ('stock_quantity', 'is_active', 'is_featured')
+        "fields": ( 'is_active', 'is_featured')
       })
   )
+
+@admin.register(ProductVariant)
+class ProductVariantAdmin(admin.ModelAdmin):
+  list_display = ['product', 'size_ml', 'get_size_ml_display',]
+  list_filter = ['product', 'size_ml']
+  search_fields = ['product', 'size_ml']
   

@@ -1,3 +1,4 @@
+from itertools import product
 from tabnanny import verbose
 from django.db import models
 from django.urls import reverse
@@ -30,27 +31,10 @@ class Product(models.Model):
 
    description = models.TextField(verbose_name='Описане')
    image = models.ImageField(upload_to='parfumes_images', verbose_name='Изображения')
-   quantity = models.PositiveBigIntegerField(default=0, verbose_name='Количество')
-   stock_quantity = models.PositiveIntegerField(default=0)
    category = models.ForeignKey(to=Category,
                                 on_delete=models.CASCADE, 
                                 related_name='products',
                                 verbose_name='Категория')
-   
-  #  SIZE_CHOICES = [
-  #    ('10ml','10ml')
-  #    ('20ml','20ml')
-  #    ('30ml','30ml')
-  #    ('50ml','50ml')
-  #  ]
-  #  available_sizes = models.CharField(
-  #    max_length=10,
-  #    choices=SIZE_CHOICES,
-  #    default = '10ml'
-  #  )
-
-
-   
    is_active = models.BooleanField(default=True)
    is_featured = models.BooleanField(default=False)
 
@@ -63,8 +47,37 @@ class Product(models.Model):
       verbose_name_plural = 'Продукты'
       ordering = ('-created_at',)
 
+
+class ProductVariant(models.Model):
+   SIZE_CHOICES = [
+     (10, '10ml'),
+     (20, '20ml'),
+     (30, '30ml'),
+     (50, '50ml'),
+   ]
+
+   product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='variants',
+                               verbose_name='Имя')
+   size_ml = models.IntegerField(choices=SIZE_CHOICES)
+   price = models.DecimalField(default=0, max_digits=7, decimal_places=0, 
+                               verbose_name='Цена для этого размера')
+   stock_quantity = models.PositiveIntegerField(default=0, 
+                                                verbose_name='Количество на складе для этого размера')
+   
+
+   class Meta:
+     unique_together = ['product', 'size_ml']
+   
    def __str__(self):
-    return f"{self.name} - {self.brand_name}"
+      return f"{self.product.name} - {self.get_size_ml_display()}"
+   
+   def is_in_stock(self, qty):
+     return self.stock_quantity >= qty
+  
+
+
+  #  def __str__(self):
+  #   return f"{self.name} - {self.brand_name}"
    
    def get_absolute_url(self):
      return reverse("catalog:products", kwargs={"product_slug": self.slug})

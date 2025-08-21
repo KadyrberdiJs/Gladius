@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="card">
+    <div class="row">
+        <div class="col-12 order-cart">
+            <div class="title">
+                <div class="row">
+                    <div class="col"><h4><b>Shopping Cart</b></h4></div>
+                    <div class="col align-self-center text-right text-muted">3 items</div>
+                </div>
+            </div>    
+            <div class="order-row border-top border-bottom">
+                <div class="row main align-items-center">
+                    <div class="col-2"><img class="img-fluid" src="images/Roja_isola_blu.webp"></div>
+                    <div class="col">
+                        <div class="row text-muted">Shirt</div>
+                        <div class="row">Cotton T-shirt</div>
+                    </div>
+
+                    <style>
+                      
+                    </style>
+                    <div class="quantity-container col d-flex align-items-center">
+                        <div class="cart-quantity-picker">
+                          <button type="button" class="btn-decrease">-</button>
+                          <input
+                            type="number"
+                            name="quantity"
+                            id="quantity-input"
+                            value="1"
+                            min="1"
+                            readonly
+                          >
+                          <button type="button" class="btn-increase">+</button>
+                        </div>
+                    </div>
+
+                    <div class="col d-flex align-items-center justify-content-end">&euro; 44.00</div>
+                    <div class="col-auto p-0 d-flex align-items-center justify-content-center">
+                        <a href="#" class="remove-from-cart" data-cart-id="">
+                            <img src="images/icons/trash3-fill.svg"
+                                alt="Catalog Icon" width="16" height="16">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="row main align-items-center">
+                    <div class="col-2"><img class="img-fluid" src="images/Tygaar.png"></div>
+                    <div class="col">
+                        <div class="row text-muted">Shirt</div>
+                        <div class="row">Cotton T-shirt</div>
+                    </div>
+
+                    <div class="quantity-container col d-flex align-items-center">
+                        <div class="cart-quantity-picker">
+                          <button type="button" class="btn-decrease">-</button>
+                          <input
+                            type="number"
+                            name="quantity"
+                            id="quantity-input"
+                            value="1"
+                            min="1"
+                            readonly
+                          >
+                          <button type="button" class="btn-increase">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="col d-flex align-items-center justify-content-end">&euro; 44.00</div>
+                    <div class="col-auto p-0 d-flex align-items-center justify-content-center">
+                        <a href="#" class="remove-from-cart" data-cart-id="">
+                            <img class="mx-1" src="images/icons/trash3-fill.svg"
+                                alt="Catalog Icon" width="16" height="16">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- Перемещено под блок с товарами внутри col-md-8 cart -->
+        <div class="summary  mt-md-0">
+            <div class="d-flex justify-content-center">
+                <h4 class="fw-bold" style="font-size: 2rem;">Детали заказа</h4>
+            </div>
+            <hr class="mt-3">
+            <div class="row">
+                <div class="col-6" style="padding-left:0;">ITEMS 3</div>
+                <div class="col-6 text-right">&euro; 132.00</div>
+            </div>
+            <form>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="id_first_name" class="form-label fw-normal">Имя*:</label>
+                        <input type="text" class="form-control" id="id_first_name"
+                            name="first_name" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="id_last_name" class="form-label fw-normal">Фамилия*:</label>
+                        <input type="text" class="form-control" id="id_last_name" name="last_name" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="id_phone_number" class="form-label fw-normal">Номер телефона*:</label>
+                        <input type="text" class="form-control" id="id_phone_number" name="phone_number"
+                            placeholder="В формате: XXX-XXX-XX-XX"
+                            required>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label for="delivery" class="form-label fw-normal">Способ доставки: </label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="requires_delivery"
+                                id="id_requires_delivery_1" value="1" checked>
+                            <label class="form-check-label fw-normal" for="id_requires_delivery_1">Нужна
+                                доставка</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="requires_delivery"
+                                id="id_requires_delivery_0" value="0">
+                            <label class="form-check-label fw-normal" for="id_requires_delivery_0">Самовывоз</label>
+                        </div>
+                    </div>
+                    <div class="mb-3" id="deliveryAddressField">
+                        <label for="id_delivery_address" class="form-label fw-normal">Адрес
+                            доставки*:</label>
+                        <textarea class="form-control" id="id_delivery_address"
+                            name="delivery_address" rows="2"></textarea>
+                    </div>
+                    <div class="col-md-12 mb-3">
+                        <label class="form-label fw-normal">Способ оплаты: </label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="payment_on_get"
+                                id="id_payment_on_get_0" value="0" checked>
+                            <label class="form-check-label fw-normal" for="id_payment_on_get_0">Оплата
+                                картой</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="payment_on_get"
+                                id="id_payment_on_get_1" value="1">
+                            <label class="form-check-label fw-normal" for="id_payment_on_get_1">Наличными/картой
+                                при плучении</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center ">
+                    <button type="submit" class="btn">Оформить заказ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+</div>
+
+{% endblock  %}
