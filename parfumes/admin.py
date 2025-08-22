@@ -7,6 +7,11 @@ from parfumes.models import Category, Product, ProductVariant
 class CategoriesAdmin(admin.ModelAdmin):
   prepopulated_fields = {'slug': ('name',)}
 
+class ProductVariantInline(admin.TabularInline):
+  model = ProductVariant
+  extra = 1
+  fields = ('size_ml', 'price', 'stock_quantity')
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
   prepopulated_fields = {"slug": ("name",)}
@@ -18,16 +23,17 @@ class ProductAdmin(admin.ModelAdmin):
   # fields = ('name', 'slug', 'brand_name', 'description', 'image', 'price', 'discount', 'stock_quantity', 'category', ('is_active', 'is_featured'),)
   fieldsets = (
       ('Parfume information', {
-          "fields": ('name', 'slug', 'description','category', 'image', 'price', 'discount'),
+          "fields": ('name', 'slug', 'brand_name', 'description','category', 'image', 'price', 'discount'),
       }),
       ('Details', {
         "fields": ( 'is_active', 'is_featured')
       })
   )
+  inlines = [ProductVariantInline]
 
 @admin.register(ProductVariant)
 class ProductVariantAdmin(admin.ModelAdmin):
-  list_display = ['product', 'size_ml', 'get_size_ml_display',]
+  list_display = ['product', 'size_ml', 'get_size_ml_display', 'price']
   list_filter = ['product', 'size_ml']
   search_fields = ['product', 'size_ml']
   

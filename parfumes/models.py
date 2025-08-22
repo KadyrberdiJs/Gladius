@@ -1,3 +1,4 @@
+from decimal import Decimal
 from itertools import product
 from tabnanny import verbose
 from django.db import models
@@ -42,11 +43,18 @@ class Product(models.Model):
 
 
    class Meta:
-      db_table = 'product'
+      db_table = 'product'    
       verbose_name = 'Продукт'
       verbose_name_plural = 'Продукты'
       ordering = ('-created_at',)
 
+
+SIZE_MULTIPLIERS = {
+  10: Decimal('1.0'),
+  20: Decimal('1.944'),
+  30: Decimal('2.778'),
+  50: Decimal('4.444'),
+}
 
 class ProductVariant(models.Model):
    SIZE_CHOICES = [
@@ -64,6 +72,7 @@ class ProductVariant(models.Model):
    stock_quantity = models.PositiveIntegerField(default=0, 
                                                 verbose_name='Количество на складе для этого размера')
    
+   
 
    class Meta:
      unique_together = ['product', 'size_ml']
@@ -71,6 +80,14 @@ class ProductVariant(models.Model):
    def __str__(self):
       return f"{self.product.name} - {self.get_size_ml_display()}"
    
+   def save(self, *args, **kwargs):
+      if not self.price or self.pk is None:
+        base_price = self.product.price
+        multiplier = SIZE_MULTIPLIERS.get(self.size_ml, Decimal('1.0'))
+        self.price = round(base_price * multiplier)
+      super().save(*args, **kwargs) 
+
+
    def is_in_stock(self, qty):
      return self.stock_quantity >= qty
   
@@ -79,10 +96,10 @@ class ProductVariant(models.Model):
   #  def __str__(self):
   #   return f"{self.name} - {self.brand_name}"
    
-   def get_absolute_url(self):
-     return reverse("catalog:products", kwargs={"product_slug": self.slug})
+  #  def get_absolute_url(self):
+  #    return reverse("catalog:products", kwargs={"product_slug": self.slug})
    
-   def sell_price(self):
-    if self.discount: # если есть скидка
-      return round(self.price - self.price * self.discount/100, 2) 
-    return self.price
+  #  def sell_price(self):
+  #   if self.discount: # если есть скидка
+  #     return round(self.price - self.price * self.discount/100, 2) 
+  #   return self.price
