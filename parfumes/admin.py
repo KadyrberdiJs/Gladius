@@ -33,7 +33,8 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(ProductVariant)
 class ProductVariantAdmin(admin.ModelAdmin):
-  list_display = ['product', 'size_ml', 'get_size_ml_display', 'price']
+  list_display = ['product', 'size_ml',  'price']
+  list_editable = ['price']
   list_filter = ['product', 'size_ml']
   search_fields = ['product', 'size_ml']
   

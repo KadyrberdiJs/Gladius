@@ -28,7 +28,7 @@ class Product(models.Model):
    slug = models.SlugField(max_length=200, unique=True, verbose_name='URL')
    brand_name = models.CharField(max_length=120, verbose_name='Имя бренда')
    price = models.DecimalField(default=0, max_digits=7, decimal_places=0, verbose_name='Цена')
-   discount = models.DecimalField(default=0, max_digits=7, decimal_places=0, verbose_name='Скидка в %')
+   discount = models.DecimalField(default=0, max_digits=5, decimal_places=2, verbose_name='Скидка в %')
 
    description = models.TextField(verbose_name='Описане')
    image = models.ImageField(upload_to='parfumes_images', verbose_name='Изображения')
@@ -48,6 +48,11 @@ class Product(models.Model):
       verbose_name_plural = 'Продукты'
       ordering = ('-created_at',)
 
+   def sell_price(self):
+    if self.discount and self.discount > 0: # если есть скидка
+      return round(self.price - self.price * self.discount/100, 0) 
+    return self.price
+
 
 SIZE_MULTIPLIERS = {
   10: Decimal('1.0'),
@@ -66,19 +71,25 @@ class ProductVariant(models.Model):
 
    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='variants',
                                verbose_name='Имя')
-   size_ml = models.IntegerField(choices=SIZE_CHOICES)
+   size_ml = models.IntegerField(choices=SIZE_CHOICES, verbose_name='Объем (ml)')
    price = models.DecimalField(default=0, max_digits=7, decimal_places=0, 
                                verbose_name='Цена для этого размера')
    stock_quantity = models.PositiveIntegerField(default=0, 
                                                 verbose_name='Количество на складе для этого размера')
    
    
-
    class Meta:
      unique_together = ['product', 'size_ml']
+     verbose_name = 'Вариант продукта'
+     verbose_name_plural = 'Вариант продуктов'
    
    def __str__(self):
       return f"{self.product.name} - {self.get_size_ml_display()}"
+   
+   def sell_price(self):
+    if self.product.discount: # если есть скидка
+      return round(self.price - self.price * self.product.discount/100, 0) 
+    return self.price
    
    def save(self, *args, **kwargs):
       if not self.price or self.pk is None:
@@ -91,6 +102,7 @@ class ProductVariant(models.Model):
    def is_in_stock(self, qty):
      return self.stock_quantity >= qty
   
+   
 
 
   #  def __str__(self):
@@ -98,8 +110,3 @@ class ProductVariant(models.Model):
    
   #  def get_absolute_url(self):
   #    return reverse("catalog:products", kwargs={"product_slug": self.slug})
-   
-  #  def sell_price(self):
-  #   if self.discount: # если есть скидка
-  #     return round(self.price - self.price * self.discount/100, 2) 
-  #   return self.price

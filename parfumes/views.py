@@ -2,11 +2,12 @@ from email.policy import default
 from gc import get_objects
 from os import name
 from urllib import request
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, ListView
 from django.db.models import Q  
 
-from parfumes.models import Product, Category
+from parfumes.models import Product, Category, ProductVariant
 
 
 class CatalogView(ListView):
@@ -36,7 +37,7 @@ class CatalogView(ListView):
           queryset = queryset.order_by('price')
 
       if sort_by == 'on_sale':
-          queryset = queryset.order_by(discount__gt=0)
+          queryset = queryset.filter(discount__gt=0).order_by('-discount')
       
       search_query = self.request.GET.get('search')
 
@@ -79,10 +80,35 @@ def product_detail(request, product_slug):
     default_variant = parfume.variants.filter(size_ml=10).first()
     context = {
         'parfume': parfume,
-        'default_variant': default_variant
+        'default_variant': default_variant,
+        'variants': parfume.variants.all(),
+        'title': f'Gladius - {parfume.brand_name} {parfume.name}'
     }
 
     return render(request, 'parfumes/product.html', context)
+
+
+
+def get_variant_price(request, product_id, size_ml):
+    product = get_object_or_404(Product, id=product_id)
+    try:
+        variant = product.variants.get(size_ml=size_ml)
+        price = variant.price
+        sell_price = variant.sell_price()
+        has_discount = bool(product.discount)
+        return JsonResponse({
+            'price': float(sell_price),
+            'original_price': price if has_discount else None,
+            'has_discount': has_discount
+        })
+    except ProductVariant.DoesNotExist:
+        return JsonResponse({'error': 'Variant not found'}, status=400)
+
+
+
+
+
+
 
 # class ProductView(DetailView):
 

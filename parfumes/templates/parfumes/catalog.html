@@ -73,7 +73,19 @@
 														<h3 class='mb-0'>{{ parfume.name }}</h3>
 													</a>
 													<span>{{ parfume.brand_name }}</span>
-													<div class="item-price">{{ parfume.price }} m.</div>
+													
+													<!--Цена продукта-->
+													{% if parfume.discount %}
+														<div style="display: flex; justify-content: center; align-items: center; gap: 8px;">
+															<p class='mb-1' style="margin-bottom: 0;"><s>{{ parfume.price }}</s> .m</p>
+															<div class="item-price">{{ parfume.sell_price }} m.</div>
+														</div>
+														<span class="badge bg-warning text-dark">
+															Скидка {{ parfume.discount }} %
+														</span>
+													{% else %}
+														<div class="item-price">{{ parfume.price }} m.</div>
+													{% endif %}
 												</figcaption>
 											</div>
 										</div>

@@ -4,15 +4,25 @@
 {% block content %}
 
 <section>
-  <div class="product-container product-flex">
+  <div class="product-container product-flex"  style="background-color: #F3F0EB !important;">
     <div class="product-left">
       <div class="main_image">
         <img src="{{ parfume.image.url }}" class="slide product-img">
       </div>
     </div>
     <div class="product-right">
-      <h3 class="product-name">{{parfume.name}}</h3>
-      <h4 style="color: gray;"> <small>m. </small>{{ parfume.price }} </h4>
+      <h1 class="product-name">{{parfume.name}}</h1>
+      <h3 class="product-name"  style="color: #9D5248 !important;"> 
+        {{parfume.brand_name}}</h3>
+      <div id="price-display">
+        {% if parfume.discount %}
+          <del> m. {{ variants.first.price }}</del>  <!-- Start with first variant's price as default -->
+          <span> m. {{ variants.first.sell_price }}</span>
+        {% else %}
+            m. {{ variants.first.price }}  <!-- Default to first variant -->
+        {% endif %}
+      </div>
+
       <p class="product-description">
         {{ parfume.description }}
       </p>            
@@ -24,13 +34,15 @@
     <form action="{% url "cart:add_to_cart" product_id=parfume.id %}" method='post'>
       {% csrf_token %}
       <label>Выбери объем (ml):</label>
-      <select class="ml_size d-flex" name="ml_size" required>
-        <option value="">Выбери...</option>
-        {% for variant in parfume.variants.all %}
-          <option value="{{ variant.size_ml }}" data-price="{{ variant.price }}">
+      <select class="ml_size d-flex" name="ml_size" id="size-select">
+        <option value="" disabled selected>Выбери...</option>
+
+        {% for variant in variants.all %}
+          <option value="{{ variant.size_ml }}">
             {{ variant.get_size_ml_display }}
           </option>
         {% endfor %}
+
       </select>
       
       <div class="quantity-container">
@@ -54,5 +66,54 @@
     </div>
   </div>
 </section>
+
+<script>
+// Wait for page to load
+document.addEventListener('DOMContentLoaded', function() {
+    // Find the select
+    var sizeSelect = document.getElementById('size-select');
+    
+    // When you change the select
+    sizeSelect.addEventListener('change', function() {
+        var selectedSize = this.value;  // Get the size_ml like '20'
+        
+        if (selectedSize) {  // If something chosen
+            // Use Fetch to call the server
+            console.log('Fetching price for product {{ parfume.id }} and size ' + selectedSize)
+            fetch('/catalog/get-price/{{ parfume.id }}/' + selectedSize + '/', {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            }) 
+                .then(function(response) {
+                    // Check if ok 
+                    if (!response.ok) {
+                        throw new Error('Network error');
+                    }
+                    return response.json();  // Get JSON data
+                })
+                .then(function(data) {
+                    // Find the price display
+                    var priceDisplay = document.getElementById('price-display');
+                    
+                    if (data.error) {
+                        priceDisplay.innerHTML = 'Ошибка: размер не найден';
+                    } else if (data.has_discount) {
+                        // Show with discount
+                        priceDisplay.innerHTML = '<del> m. ' + data.original_price + '</del> <span> m. ' + data.price + '</span>';
+                    } else {
+                        // No discount
+                        priceDisplay.innerHTML = ' m. ' + data.price;
+                    }
+                })
+                .catch(function(error) {
+                    console.error('Error:', error);  // Show error in console
+                    document.getElementById('price-display').innerHTML = 'Ошибка загрузки цены';
+                });
+        }
+    });
+});
+</script>
 
 {% endblock  %}

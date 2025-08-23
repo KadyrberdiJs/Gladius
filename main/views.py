@@ -21,6 +21,7 @@ class HomeView(TemplateView):
       ]
       # For now, we'll use static data that matches your template
         # Later, these will come from your database
+      context['title'] = 'Gladius'
       context['featured_parfumes'] = [
             {
                 'name': 'Bleu De Chanel',

@@ -2980,6 +2980,8 @@ select{
 .main_image {
   width: auto;
   height: auto;
+  display: flex;
+  justify-content: center;
 }
 
 .product-option .product-img {
@@ -2995,7 +2997,6 @@ select{
 .product-name {
   color: black;
   margin: 20px 0 20px 0;
-  font-size: 25px;
 }
 
 
@@ -3011,6 +3012,25 @@ small {
   line-height: 25px;
 }
 
+#price-display {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+    margin: 15px 0;
+    padding: 10px;
+    display: inline-block;
+}
+
+#price-display span {
+    color: #f07567;
+    font-size: 28px;
+}
+
+#price-display del {
+    color: #7f8c8d;
+    font-size: 20px;
+    margin-right: 10px;
+}
 
 .labell,
 .product-add span,
@@ -3290,4 +3310,26 @@ small {
 .luxury-select option {
     color: #333;                /* readable option text */
     background-color: #fff;
+}
+
+/* Ribbon for discount badge */
+.ribbon {
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    --r: .8em; /* control the cutout */
+    border-block: .5em solid #0000;
+    padding-inline: .5em calc(var(--r) + .25em);
+    line-height: 1.8;
+    clip-path: polygon(100% 0,0 0,0 100%,100% 100%,calc(100% - var(--r)) calc(100% - .25em),100% 50%,calc(100% - var(--r)) .25em);
+    background:
+        radial-gradient(.2em 50% at left,#000a,#0000) border-box,
+        #45ADA8 padding-box; /* teal color */
+    width: fit-content;
+}
+
+/* Optional: Style the box container if needed */
+.box {
+    position: relative;
+    display: inline-block;
 }
