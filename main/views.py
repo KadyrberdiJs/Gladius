@@ -11,6 +11,9 @@ class HomeView(TemplateView):
 
   def get_context_data(self, **kwargs):
       context = super().get_context_data(**kwargs)
+      featured_products = Product.objects.filter(is_featured=True)
+      discount_products = Product.objects.filter(discount__gt=0)
+      elite_products = Product.objects.filter(slug='isola-blu')
       
       context['hero_parfume'] = [
          {
@@ -22,32 +25,9 @@ class HomeView(TemplateView):
       # For now, we'll use static data that matches your template
         # Later, these will come from your database
       context['title'] = 'Gladius'
-      context['featured_parfumes'] = [
-            {
-                'name': 'Bleu De Chanel',
-                'brand': 'Chanel', 
-                'price': 100.00,
-                'image': 'static/images/parfumes/Chanel Bleu De Chanel.png'
-            },
-            {
-                'name': 'Creed Aventus',
-                'brand': 'Creed',
-                'price': 350.00, 
-                'image': 'static/images/parfumes/creed-aventus.png'
-            },
-            {
-                'name': "l'immensite",
-                'brand': 'Louis vuitton',
-                'price': 250.00,
-                'image': 'static/images/parfumes/limminsite.png'
-            },
-            {
-                'name': 'Imagination',
-                'brand': 'Louis vuitton', 
-                'price': 120.00,
-                'image': 'static/images/parfumes/imagination.png'
-            }
-        ]
+      context['featured_parfumes'] = featured_products
+      context['discount_parfumes'] = discount_products
+      context['elite_parfumes'] = elite_products
 
       return context
 

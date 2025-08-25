@@ -3207,33 +3207,54 @@ small {
 }
 
 
-.pagination .page-link {
-    color: #9D5248;
-    background-color: #F7F5F1;
-    border: 1px solid #9D5248;
-    padding: 8px 12px;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+/* Style the pagination container */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Space between buttons */
+  margin: 20px 0; /* Space above and below */
 }
-.pagination .page-item.active .page-link {
-    background-color: #C3B0A5;
-    color: #F7F5F1;
-    border-color: #9D5248;
+
+/* Style all page links */
+.page-link {
+  display: inline-block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #333; /* Text color */
+  background-color: #F7F5F1; /* Light background */
+  border: 1px solid #ddd; /* Border */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px;
+  transition: background-color 0.3s, color 0.3s; /* Smooth hover effect */
 }
-.pagination .page-item:not(.disabled):not(.active) .page-link:hover {
-    background-color: #9D5248; /* Darker shade of #EFEEE8 */
-    color: #F7F5F1;
+
+/* Hover effect for clickable links */
+.page-link:hover:not(.page-link-current, .page-link-disabled) {
+  background-color: #9D5248; /* Blue background on hover */
+  color: white; /* White text on hover */
 }
-.pagination .page-item:not(.disabled) .page-link:hover {
-    background-color: #9D5248;
-    color: #F7F5F1;
+
+/* Style for the current page */
+.page-link-current {
+  background-color: #9D5248; /* Blue background for current page */
+  color: white; /* White text */
+  border: 1px solid #ddd; /* Matching border */
+  cursor: default; /* No pointer cursor */
 }
-.pagination .page-item.disabled .page-link {
-    color: #9D5248;
-    opacity: 0.5;
-    cursor: not-allowed;
-    background-color: #F7F5F1;
+
+/* Style for disabled Previous/Next buttons */
+.page-link-disabled {
+  background-color: #e0e0e0; /* Gray background */
+  color: #999; /* Gray text */
+  border: 1px solid #ddd;
+  cursor: not-allowed; /* Disabled cursor */
+}
+
+/* Optional: Specific styles for Previous/Next buttons */
+.page-link-prev,
+.page-link-next {
+  padding: 8px 16px; /* Slightly wider buttons */
 }
 
 .footer {

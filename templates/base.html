@@ -128,7 +128,7 @@
 								<h2 class="banner-title">{{ banner.name }}</h2>
 								<p>{{ banner.description }}</p>
 								<div class="btn-wrap">
-									<a href="#" class="btn btn-outline-accent btn-accent-arrow">Читать больше<i
+									<a href="#" class="btn-accent-arrow">Читать больше<i
 											class="icon icon-ns-arrow-right"></i></a>
 								</div>
 							</div><!--banner-content-->
@@ -157,26 +157,42 @@
                 </div>
 
                 <div class="product-list" data-aos="fade-up">
-                    <div class="row">
-                        {% for parfume in featured_parfumes %}
-                        <div class="col-md-3">
-                            <div class="product-item">
-                                <figure class="product-style">
-                                    <div class="product-image-container">
-                                        <img src="{{ parfume.image }}" alt="{{ parfune.name }}" class="product-item">
-                                    </div>
-                                </figure>
-                                <figcaption>
-                                    <h3>{{ parfume.name }}</h3>
-                                    <span>{{ parfume.brand }}</span>
-                                    <div class="item-price">{{ parfume.price }}</div>
-                                </figcaption>
-                            </div>
-                        </div>
-												{% endfor %}
+								<div class="row">
+									{% for parfume in featured_parfumes %}
+									<div class="col-md-3">
+										<div class="product-item">
+											<figure class="product-style">
+												<div class="product-image-container">
+													<a href="{% url "catalog:product_detail" parfume.slug %}">
+														<img src="{{ parfume.image.url }}" alt="{{ parfume.name }}" class="product-item"></a>
+												</div>
+												<figcaption>
+													<a href="{% url "catalog:product_detail" parfume.slug %}" class='text-decoration-none mb-0'>
+														<h3 class='mb-0'>{{ parfume.name }}</h3>
+													</a>
+													<span>{{ parfume.brand_name }}</span>
+													
+													<!--Цена продукта-->
+													{% if parfume.discount %}
+														<div style="display: flex; justify-content: center; align-items: center; gap: 8px;">
+															<p class='mb-1' style="margin-bottom: 0;"><s>{{ parfume.price }}</s> .m</p>
+															<div class="item-price">{{ parfume.sell_price }} m.</div>
+														</div>
+														<span class="badge bg-warning text-dark">
+															Скидка {{ parfume.discount }} %
+														</span>
+													{% else %}
+														<div class="item-price">{{ parfume.price }} m.</div>
+													{% endif %}
+												</figcaption>
+											</div>
+										</div>
+										{% endfor %}
 
-                    </div><!--row-->
-                </div><!--product-list-->
+										
+															
+								</div><!--row-->
+							</div><!--product-list-->
 
             </div><!--col-->
         </div>
@@ -204,27 +220,31 @@
 
 					<div class="row">
 
-						<div class="col-md-6">
+						<div class="col-md-8" >
 							
-								<img src={% static "images/imagination.avif" %} alt="book" class="single-image"
-								style="border-radius: 50px;">
+								<img src={% static "images/isola_blu.webp" %} alt="book" 
+								class="single-image"
+								style="border-radius: 10px;">
 							
 						</div>
 
-						<div class="col-md-6">
+						<div class="col-md-4">
 							<div class="product-entry">
-								<h2 class="section-title divider mb-3">Самый продоваемый парфюм</h2>
+								<h2 class="section-title divider mb-3">Самый элитный парфюм</h2>
 
 								<div class="products-content">
-									<div class="author-name">Jacques Cavallier Belletrud</div>
-									<h3 class="item-title">LV Imagination</h3>
-									<p>Louis Vuitton Imagination — это чувственный, современный аромат с нотами амброксана, благородных цитрусовых и чёрного чая из Китая .</p>
-									<div class="item-price">$ 45.00</div>
+
+									{% for parfume in elite_parfumes %}
+									<div class="author-name">{{ parfume.brand_name }}</div>
+									<h3 class="item-title">{{parfume.name}}</h3>
+									<p>{{ parfume.description }}</p>
+									<div class="item-price">m. {{ parfume.price }}</div>
 									<div class="btn-wrap">
-										<a href="#" class="btn-accent-arrow">Купить сейчас <i
-												class="icon icon-ns-arrow-right"></i></a>
+										<a href="{% url "catalog:product_detail" parfume.slug %}" class="btn-accent-arrow">Купить сейчас <i
+											class="icon icon-ns-arrow-right"></i></a>
+										</div>
 									</div>
-								</div>
+									{% endfor %}
 
 							</div>
 						</div>
@@ -251,80 +271,72 @@
 		</div>
 	</section>
 
-	<section id="special-offer" class="bookshelf pb-5 mb-5">
+<section id="featured-books" class="py-5 my-5 mt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="section-header align-center">
+                    <div class="title">
+                        <span>Воспользуйтесь своей возможностью</span>
+                    </div>
+                    <h2 class="section-title">Духи со скидкой</h2>
+                </div>
 
-		<div class="section-header align-center">
-			<div class="title">
-				<span>
-					Воспользуйтесь своей возможностью</span>
-			</div>
-			<h2 class="section-title">Духи со скидкой</h2>
-		</div>
-
-		<div class="product-list" data-aos="fade-up">
-			<div class="row">
-					
-					<div class="col-md-3">
-							<div class="product-item">
-									<figure class="product-style">
-											<div class="product-image-container">
-													<img src={% static "images/parfumes/Chanel Bleu De Chanel.png" %} alt="Bleu De Chanel" class="product-item">
+                <div class="product-list" data-aos="fade-up">
+								<div class="row">
+									{% for parfume in discount_parfumes %}
+									<div class="col-md-3">
+										<div class="product-item">
+											<figure class="product-style">
+												<div class="product-image-container">
+													<a href="{% url "catalog:product_detail" parfume.slug %}">
+														<img src="{{ parfume.image.url }}" alt="{{ parfume.name }}" class="product-item"></a>
+												</div>
+												<figcaption>
+													<a href="{% url "catalog:product_detail" parfume.slug %}" class='text-decoration-none mb-0'>
+														<h3 class='mb-0'>{{ parfume.name }}</h3>
+													</a>
+													<span>{{ parfume.brand_name }}</span>
+													
+													<!--Цена продукта-->
+													{% if parfume.discount %}
+														<div style="display: flex; justify-content: center; align-items: center; gap: 8px;">
+															<p class='mb-1' style="margin-bottom: 0;"><s>{{ parfume.price }}</s> .m</p>
+															<div class="item-price">{{ parfume.sell_price }} m.</div>
+														</div>
+														<span class="badge bg-warning text-dark">
+															Скидка {{ parfume.discount }} %
+														</span>
+													{% else %}
+														<div class="item-price">{{ parfume.price }} m.</div>
+													{% endif %}
+												</figcaption>
 											</div>
-											<button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to Cart</button>
-									</figure>
-									<figcaption>
-											<h3>Bleu De Chanel</h3>
-											<span>Chanel</span>
-											<strong>
-												<p><s>250</s> $</p>
-											</strong><div class="item-price">$ 100.00</div>
-									</figcaption>
-							</div>
-					</div>
+										</div>
+										{% endfor %}
 
-					<div class="col-md-3">
-							<div class="product-item">
-									<figure class="product-style">
-											<div class="product-image-container">
-													<img src={% static "images/parfumes/creed-aventus.png" %} alt="Creed Aventus" class="product-item">
-											</div>
-											<button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to Cart</button>
-									</figure>
-									<figcaption>
-											<h3>Creed Aventus</h3>
-											<span>Creed</span>
-											<strong>
-												<p><s>500</s> $</p>
-											</strong>
-											<div class="item-price">$ 350.00</div>
-									</figcaption>
-							</div>
-					</div>
+										
+															
+								</div><!--row-->
+							</div><!--product-list-->
 
-					<div class="col-md-3">
-							<div class="product-item">
-									<figure class="product-style">
-											<div class="product-image-container">
-													<img src={% static "images/parfumes/creed-aventus.png" %} alt="Creed Aventus" class="product-item">
-											</div>
-											<button type="button" class="add-to-cart" data-product-tile="add-to-cart">Add to Cart</button>
-									</figure>
-									<figcaption>
-											<h3>Creed Aventus</h3>
-											<span>Creed</span>
-											<strong>
-												<p><s>500</s> $</p>
-											</strong>
-											<div class="item-price">$ 350.00</div>
-									</figcaption>
-							</div>
-					</div>
-			</div>
-		</div>
-					
+            </div><!--col-->
+        </div>
 
-		
-	</section>
+        <div class="row">
+							<div class="col-md-12">
+								<div class="btn-wrap align-right">
+									{% tag_all_categories as categories %}
+									{% for category in categories %}
+									<a href="{% url "catalog:catalog" category.slug %}" class="btn-accent-arrow">Показать все <i class="icon icon-ns-arrow-right"></i></a>
+									{% endfor %}
+                </div>
+							</div>
+						</div>
+					</div>
+    </div>
+</section>
+
 
 	<section id="subscribe">
 		<div class="container">
