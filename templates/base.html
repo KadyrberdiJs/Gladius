@@ -125,14 +125,16 @@
 						{% for banner in hero_parfume %}
 						<div class="slider-item">
 							<div class="banner-content">
-								<h2 class="banner-title">{{ banner.name }}</h2>
-								<p>{{ banner.description }}</p>
+								<h2 class="banner-title">{{ banner.brand_name }} {{ banner.name }}</h2>
+								<p>
+									В созданной известным парфюмером Жаком Кавалье ароматической композиции красиво переплетаются освежающие цитрусовые ноты розового грейпфрута и бархатисто-пряного запаха древесины
+								</p>
 								<div class="btn-wrap">
-									<a href="#" class="btn-accent-arrow">Читать больше<i
+									<a href="{% url "catalog:product_detail" banner.slug %}" class="btn-accent-arrow">Читать больше<i
 											class="icon icon-ns-arrow-right"></i></a>
 								</div>
 							</div><!--banner-content-->
-							<img src="{{ banner.image }}" alt="banner" class="banner-image">
+							<img src="{{ banner.image.url }}" alt="banner" class="banner-image">
 						</div><!--slider-item-->
 						{% endfor %}
 
@@ -150,10 +152,8 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="section-header align-center">
-                    <div class="title">
-                        <span>Some quality items</span>
-                    </div>
-                    <h2 class="section-title">Featured Fragrances</h2>
+                    <h2 class="section-title">
+											Рекомендуемые ароматы</h2>
                 </div>
 
                 <div class="product-list" data-aos="fade-up">
@@ -237,7 +237,7 @@
 									{% for parfume in elite_parfumes %}
 									<div class="author-name">{{ parfume.brand_name }}</div>
 									<h3 class="item-title">{{parfume.name}}</h3>
-									<p>{{ parfume.description }}</p>
+									<p>Isola Blu — это аромат про чистое небо, море и утончённую роскошь. Он пахнет как элитный отдых на берегу: цитрусы, морской ветер, лёгкая древесность. Подойдёт для тех, кто любит освежающие, но при этом статусные ароматы.</p>
 									<div class="item-price">m. {{ parfume.price }}</div>
 									<div class="btn-wrap">
 										<a href="{% url "catalog:product_detail" parfume.slug %}" class="btn-accent-arrow">Купить сейчас <i
@@ -446,6 +446,7 @@
 	<script src={% static "js/plugins.js" %}></script>
 	<script src={% static "js/script.js" %}></script>
 	<script src={% static "js/alert.js" %}></script>
+	<script src={% static "js/quantity-btn.js" %}></script>
 
 </body>
 

@@ -45,18 +45,12 @@
 
       </select>
       
+      <label class="quantity-title">Количество:</label>
       <div class="quantity-container">
-        <h5 class="quantity-title">Количество:</h5>
-        <div class="quantity-picker">
-          <button type="button" class="btn-decrease">-</button>
-          <input         
-            type="number"
-            name="quantity"
-            id="quantity-input"
-            value="1"          
-            min="1"
-          >        
-          <button type="button" class="btn-increase">+</button>
+        <div class='quantity-picker'>
+          <button type="button" class="quantity-btn minus">-</button>
+          <input type="number" name="quantity" id="quantity" value="1" min="1" readonly>
+          <button type="button" class="quantity-btn plus">+</button>
         </div>
       </div>
       
