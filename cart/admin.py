@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from cart.views import AddToCartView
+
+
+# @admin.register(AddToCartView)
+# class AddToCartAdmin(admin.ModelAdmin):
+#   list_display = 

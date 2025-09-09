@@ -3167,11 +3167,62 @@ small {
   }
 }
 
-.ml_size {
+.size_ml {
   width: 120px;
   border: #9D5248 1px solid;
   color: #9D5248;
   background-color: white;
+  cursor: pointer;
+}
+
+.alert-container {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.alert {
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    max-width: 150px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+    pointer-events: auto;
+    opacity: 0;
+    animation: fadeInOut 5s ease-in-out;
+}
+
+.alert-success {
+    background: rgba(46, 204, 113, 0.9);
+}
+
+.alert-error {
+    background: rgba(231, 76, 60, 0.9);
+}
+
+.close-alert {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 8px;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
 }
 
 /* Профиль */

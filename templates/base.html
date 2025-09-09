@@ -27,6 +27,9 @@
 
 <body style="background-color: #F7F5F1 !important;" data-bs-spy="scroll" data-bs-target="#header" tabindex="0">
 
+{% include "includes/alert.html" %}
+
+
 	<div id="header-wrap">
 
 		<div class="top-content">
@@ -39,7 +42,7 @@
 							{% if user.is_authenticated %}
 							<a href="{% url "user:profile" %}" class="user-account for-buy"><i
 								class="icon icon-user"></i><span></span></a>
-								<a href="cart.html" class="cart for-buy"><i class="icon icon-clipboard">
+								<a href="{% url "cart:cart-detail" %}" class="cart for-buy"><i class="icon icon-clipboard">
 								</i><span>
 									(0 $)</span></a>
 									{% else %}
@@ -106,8 +109,8 @@
 		</header>
 
 	</div><!--header-wrap-->
+<div id="alert-placeholder"></div>
 
-{% include "includes/alert.html" %}
 {% block content %}
 
 	<!--Контент на странице-->
@@ -446,6 +449,7 @@
 	<script src={% static "js/plugins.js" %}></script>
 	<script src={% static "js/script.js" %}></script>
 	<script src={% static "js/alert.js" %}></script>
+	<script src={% static "js/add-to-cart.js" %}></script>
 	<script src={% static "js/quantity-btn.js" %}></script>
 
 </body>

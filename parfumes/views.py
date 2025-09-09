@@ -82,15 +82,15 @@ def product_detail(request, product_slug):
         'parfume': parfume,
         'default_variant': default_variant,
         'variants': parfume.variants.all(),
-        'title': f'Gladius - {parfume.brand_name} {parfume.name}'
+        'title': f'Gladius - {parfume.name}'
     }
 
     return render(request, 'parfumes/product.html', context)
 
 
 
-def get_variant_price(request, product_id, size_ml):
-    product = get_object_or_404(Product, id=product_id)
+def get_variant_price(request, product_slug, size_ml):
+    product = get_object_or_404(Product, slug=product_slug)
     try:
         variant = product.variants.get(size_ml=size_ml)
         price = variant.price

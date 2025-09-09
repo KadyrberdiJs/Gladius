@@ -3,6 +3,8 @@
 
 {% block content %}
 
+
+<div id="alert-placeholder"></div>
 <section>
   <div class="product-container product-flex"  style="background-color: #F3F0EB !important;">
     <div class="product-left">
@@ -31,17 +33,16 @@
 			</div>
       
 
-    <form action="{% url "cart:add_to_cart" product_id=parfume.id %}" method='post'>
+    <form action="{% url "cart:add_to_cart" product_slug=parfume.slug %}" method='post' id="add-to-cart-form">
+
       {% csrf_token %}
       <label>Выбери объем (ml):</label>
-      <select class="ml_size d-flex" name="ml_size" id="size-select">
+      <select class="size_ml d-flex" name="size_ml" id="size_ml" required>
         <option value="" disabled selected>Выбери...</option>
-
-        {% for variant in variants.all %}
-          <option value="{{ variant.size_ml }}">
-            {{ variant.get_size_ml_display }}
-          </option>
-        {% endfor %}
+        <option value="10">10ml</option>
+        <option value="20">20ml</option>
+        <option value="30">30ml</option>
+        <option value="50">50ml</option>
 
       </select>
       
@@ -108,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-</script>
 
+
+</script>
 {% endblock  %}

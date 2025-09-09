@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-
+{% if items_data %}
 <div class="card">
     <div class="row">
         <div class="col-12 order-cart">
@@ -14,27 +14,33 @@
             </div>    
             <div class="order-row border-top border-bottom">
                 <div class="row main align-items-center">
-                    <div class="col-2"><img class="img-fluid" src="images/Roja_isola_blu.webp"></div>
+                    {% for item in items_data %}
+                    <div class="col-2"><img class="img-fluid" src=""></div>
                     <div class="col">
-                        <div class="row text-muted">Shirt</div>
-                        <div class="row">Cotton T-shirt</div>
+                        <div class="row text-muted">{{ item.product_name }}</div>
+                        <div class="row">{{ item.brand }}</div>
+                        <div class="row">{{ item.size_display }}</div>
+                        <div class="row">{{ item.qauntity }}</div>
+                        <div class="row">{{ item.unit_price }}</div>
+                        <div class="row">{{ item.total_price }}</div>
                     </div>
-
+                    {% endfor %}
+                    
                     <style>
-                      
+                        
                     </style>
                     <div class="quantity-container col d-flex align-items-center">
                         <div class="cart-quantity-picker">
-                          <button type="button" class="btn-decrease">-</button>
-                          <input
+                            <button type="button" class="btn-decrease">-</button>
+                            <input
                             type="number"
                             name="quantity"
                             id="quantity-input"
                             value="1"
                             min="1"
                             readonly
-                          >
-                          <button type="button" class="btn-increase">+</button>
+                            >
+                            <button type="button" class="btn-increase">+</button>
                         </div>
                     </div>
 
@@ -42,43 +48,14 @@
                     <div class="col-auto p-0 d-flex align-items-center justify-content-center">
                         <a href="#" class="remove-from-cart" data-cart-id="">
                             <img src="images/icons/trash3-fill.svg"
-                                alt="Catalog Icon" width="16" height="16">
+                            alt="Catalog Icon" width="16" height="16">
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="row main align-items-center">
-                    <div class="col-2"><img class="img-fluid" src="images/Tygaar.png"></div>
-                    <div class="col">
-                        <div class="row text-muted">Shirt</div>
-                        <div class="row">Cotton T-shirt</div>
-                    </div>
-
-                    <div class="quantity-container col d-flex align-items-center">
-                        <div class="cart-quantity-picker">
-                          <button type="button" class="btn-decrease">-</button>
-                          <input
-                            type="number"
-                            name="quantity"
-                            id="quantity-input"
-                            value="1"
-                            min="1"
-                            readonly
-                          >
-                          <button type="button" class="btn-increase">+</button>
-                        </div>
-                    </div>
-                    
-                    <div class="col d-flex align-items-center justify-content-end">&euro; 44.00</div>
-                    <div class="col-auto p-0 d-flex align-items-center justify-content-center">
-                        <a href="#" class="remove-from-cart" data-cart-id="">
-                            <img class="mx-1" src="images/icons/trash3-fill.svg"
-                                alt="Catalog Icon" width="16" height="16">
-                        </a>
-                    </div>
-                </div>
-            </div>
+            {% else %}
+            <p>Your cart is empty.</p>
+{% endif %}
             
         </div>
         <!-- Перемещено под блок с товарами внутри col-md-8 cart -->
