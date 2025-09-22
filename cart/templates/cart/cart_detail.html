@@ -3,131 +3,93 @@
 
 {% block content %}
 {% if items_data %}
-<div class="card">
-    <div class="row">
-        <div class="col-12 order-cart">
-            <div class="title">
-                <div class="row">
-                    <div class="col"><h4><b>Shopping Cart</b></h4></div>
-                    <div class="col align-self-center text-right text-muted">3 items</div>
-                </div>
-            </div>    
-            <div class="order-row border-top border-bottom">
-                <div class="row main align-items-center">
-                    {% for item in items_data %}
-                    <div class="col-2"><img class="img-fluid" src=""></div>
-                    <div class="col">
-                        <div class="row text-muted">{{ item.product_name }}</div>
-                        <div class="row">{{ item.brand }}</div>
-                        <div class="row">{{ item.size_display }}</div>
-                        <div class="row">{{ item.qauntity }}</div>
-                        <div class="row">{{ item.unit_price }}</div>
-                        <div class="row">{{ item.total_price }}</div>
-                    </div>
-                    {% endfor %}
-                    
-                    <style>
-                        
-                    </style>
-                    <div class="quantity-container col d-flex align-items-center">
-                        <div class="cart-quantity-picker">
-                            <button type="button" class="btn-decrease">-</button>
-                            <input
-                            type="number"
-                            name="quantity"
-                            id="quantity-input"
-                            value="1"
-                            min="1"
-                            readonly
-                            >
-                            <button type="button" class="btn-increase">+</button>
-                        </div>
-                    </div>
 
-                    <div class="col d-flex align-items-center justify-content-end">&euro; 44.00</div>
-                    <div class="col-auto p-0 d-flex align-items-center justify-content-center">
-                        <a href="#" class="remove-from-cart" data-cart-id="">
-                            <img src="images/icons/trash3-fill.svg"
-                            alt="Catalog Icon" width="16" height="16">
-                        </a>
-                    </div>
-                </div>
-            </div>
-            {% else %}
-            <p>Your cart is empty.</p>
-{% endif %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-10 col-11 mx-auto">
             
+            <div class="row mt-5 gx-3">
+<!-- left side div -->
+<div class="col-md-12 col-lg-8 col-11 mx-auto main_cart mb-lg-0 mb-5 shadow">
+    {% for item in items_data %}
+<div class="card p-4">
+<div class="row">
+<!-- cart images div -->
+<div class="col-md-5 col-11 mx-auto d-flex justify-content-center align-items-center product_img d-none d-sm-flex">
+  <img src="{{ item.image.url }}" class="img-fluid" alt="cart img">
+</div>
+
+
+
+
+
+<!-- cart product details -->
+<div class="col-md-7 col-11 mx-auto px-4 mt-2">
+<div class="row">
+<!-- product name  -->
+ 
+<div class="col-6 card-title">
+<h1 class="mb-4 product_name">{{ item.product_name }}</h1>
+<p class="mb-2">БРЕНД: {{ item.brand }}</p>
+<p class="mb-3">МЛ: {{ item.size_ml }}</p>
+</div>
+
+<!-- quantity inc dec -->
+<div class="col-6">
+<ul class="pagination justify-content-end set_quantity">
+<li class="page-item"><input type="text" name="" class="page-links" value="{{ item.quantity }}" id="textbox" readonly>
+</li>
+</ul>
+</div>
+</div>
+<!-- //remover move and price -->
+<div class="row">
+<div class="col-8 d-flex justify-content-between remove_wish">
+<a href="#"><i class="fas fa-trash-alt"></i> Убрать</a>
+</div>
+<div class="col-4 d-flex justify-content-end price_money">
+<h3>m. <span id="itemval">{{ item.unit_price }} </span></h3>
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
+<hr/>
+</div>
+<!-- right side div -->
+<div class="col-md-12 col-lg-4 col-11 mx-auto mt-lg-0 mt-md-5">
+    <div class="right_side p-3 shadow bg-white">
+        <h2 class="product_name mb-5">The Total Amount Of</h2>
+        <div class="price_indiv d-flex justify-content-between">
+            <p>Product amount</p>
+            <p>m <span id="product_total_amt">0.00</span></p>
         </div>
-        <!-- Перемещено под блок с товарами внутри col-md-8 cart -->
-        <div class="summary  mt-md-0">
-            <div class="d-flex justify-content-center">
-                <h4 class="fw-bold" style="font-size: 2rem;">Детали заказа</h4>
-            </div>
-            <hr class="mt-3">
-            <div class="row">
-                <div class="col-6" style="padding-left:0;">ITEMS 3</div>
-                <div class="col-6 text-right">&euro; 132.00</div>
-            </div>
-            <form>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <label for="id_first_name" class="form-label fw-normal">Имя*:</label>
-                        <input type="text" class="form-control" id="id_first_name"
-                            name="first_name" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="id_last_name" class="form-label fw-normal">Фамилия*:</label>
-                        <input type="text" class="form-control" id="id_last_name" name="last_name" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <label for="id_phone_number" class="form-label fw-normal">Номер телефона*:</label>
-                        <input type="text" class="form-control" id="id_phone_number" name="phone_number"
-                            placeholder="В формате: XXX-XXX-XX-XX"
-                            required>
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <label for="delivery" class="form-label fw-normal">Способ доставки: </label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="requires_delivery"
-                                id="id_requires_delivery_1" value="1" checked>
-                            <label class="form-check-label fw-normal" for="id_requires_delivery_1">Нужна
-                                доставка</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="requires_delivery"
-                                id="id_requires_delivery_0" value="0">
-                            <label class="form-check-label fw-normal" for="id_requires_delivery_0">Самовывоз</label>
-                        </div>
-                    </div>
-                    <div class="mb-3" id="deliveryAddressField">
-                        <label for="id_delivery_address" class="form-label fw-normal">Адрес
-                            доставки*:</label>
-                        <textarea class="form-control" id="id_delivery_address"
-                            name="delivery_address" rows="2"></textarea>
-                    </div>
-                    <div class="col-md-12 mb-3">
-                        <label class="form-label fw-normal">Способ оплаты: </label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="payment_on_get"
-                                id="id_payment_on_get_0" value="0" checked>
-                            <label class="form-check-label fw-normal" for="id_payment_on_get_0">Оплата
-                                картой</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="payment_on_get"
-                                id="id_payment_on_get_1" value="1">
-                            <label class="form-check-label fw-normal" for="id_payment_on_get_1">Наличными/картой
-                                при плучении</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-center ">
-                    <button type="submit" class="btn">Оформить заказ</button>
-                </div>
-            </form>
+        <div class="price_indiv d-flex justify-content-between">
+            <p>Shipping Charge</p>
+            <p>m <span id="shipping_charge">50.0</span></p>
         </div>
+        <hr />
+        <div class="total-amt d-flex justify-content-between font-weight-bold">
+            <p>The total amount of (including VAT)</p>
+            <p>m <span id="total_cart_amt">0.00</span></p>
+        </div>
+        <button class="btn btn-primary text-uppercase">Checkout</button>
     </div>
     
+    
+    
+    <!-- discount code ends -->
+    
 </div>
+</div>
+</div>
+</div>
+</div>
+
+{% else %}
+            <p>Your cart is empty.</p>
+{% endif %}
+
 
 {% endblock  %}

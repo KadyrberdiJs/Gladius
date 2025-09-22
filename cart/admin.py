@@ -1,8 +1,14 @@
 from django.contrib import admin
 
-from cart.views import AddToCartView
+from cart.models import Cart, CartItem
+from cart.views import AddToCartView, CartDetailView
 
 
-# @admin.register(AddToCartView)
-# class AddToCartAdmin(admin.ModelAdmin):
-#   list_display = 
+@admin.register(Cart)
+class AddToCartAdmin(admin.ModelAdmin):
+  list_display = ['user']
+
+
+@admin.register(CartItem)
+class AddToCartAdmin(admin.ModelAdmin):
+  list_display = ['cart', 'product_variant']

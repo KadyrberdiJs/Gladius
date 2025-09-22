@@ -10,9 +10,9 @@ from cart.models import Cart, CartItem
 from parfumes.models import Product, ProductVariant
 
 class AddToCartView(CartMixin, View):
-  def post(self, request, product_slug):
+  def post(self, request, product_id):
     # Get the product
-    product = get_object_or_404(Product, slug=product_slug)
+    product = get_object_or_404(Product, id=product_id)
 
     # Get size and quantity from the form
     size_ml = request.POST.get('size_ml')

@@ -38,9 +38,9 @@ document.getElementById('add-to-cart-form').addEventListener('submit', function(
             });
 
             // Handle close buttons
-            document.addEventListener('click', function(event) {
-                if (event.target.classList.contains('close-alert')) {
-                    event.target.parentElement.remove();
-                }
-            });
+            // document.addEventListener('click', function(event) {
+            //     if (event.target.classList.contains('close-alert')) {
+            //         event.target.parentElement.remove();
+            //     }
+            // });
         });

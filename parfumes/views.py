@@ -75,8 +75,8 @@ class CatalogView(ListView):
       return context
   
 
-def product_detail(request, product_slug):
-    parfume = get_object_or_404(Product, slug=product_slug)
+def product_detail(request, product_id):
+    parfume = get_object_or_404(Product, id=product_id)
     default_variant = parfume.variants.filter(size_ml=10).first()
     context = {
         'parfume': parfume,
@@ -89,8 +89,8 @@ def product_detail(request, product_slug):
 
 
 
-def get_variant_price(request, product_slug, size_ml):
-    product = get_object_or_404(Product, slug=product_slug)
+def get_variant_price(request, product_id, size_ml):
+    product = get_object_or_404(Product, id=product_id)
     try:
         variant = product.variants.get(size_ml=size_ml)
         price = variant.price

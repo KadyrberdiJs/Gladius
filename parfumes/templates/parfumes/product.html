@@ -33,7 +33,7 @@
 			</div>
       
 
-    <form action="{% url "cart:add_to_cart" product_slug=parfume.slug %}" method='post' id="add-to-cart-form">
+    <form action="{% url "cart:add_to_cart" product_id=parfume.id %}" method='post' id="add-to-cart-form">
 
       {% csrf_token %}
       <label>Выбери объем (ml):</label>
@@ -66,7 +66,7 @@
 // Wait for page to load
 document.addEventListener('DOMContentLoaded', function() {
     // Find the select
-    var sizeSelect = document.getElementById('size-select');
+    var sizeSelect = document.getElementById('size_ml');
     
     // When you change the select
     sizeSelect.addEventListener('change', function() {

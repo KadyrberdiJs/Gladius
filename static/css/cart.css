@@ -1,0 +1,139 @@
+/* ===============================
+   Global Styles
+================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --text-clr: #4f4f4f;
+}
+
+body {
+  background: #fff;
+  color: var(--text-clr);
+}
+
+p {
+  color: #6c757d;
+  font-size: 0.85rem; /* smaller */
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-clr);
+}
+
+a:hover {
+  text-decoration: none;
+  color: var(--text-clr);
+}
+
+/* ===============================
+   Headings
+================================ */
+h2 {
+  color: var(--text-clr);
+  font-size: 1.2rem; /* smaller */
+  font-weight: 600;
+}
+
+/* ===============================
+   Card & Cart Layout
+================================ */
+.main_cart {
+  background: #fff;
+}
+
+.card {
+  border: none;
+}
+
+/* ===============================
+   Product Section
+================================ */
+.product_img img {
+  min-width: 150px;   /* smaller */
+  max-height: 150px;  /* smaller */
+}
+
+@media (max-width: 575.98px) {
+  .product_img {
+    display: none !important;
+  }
+}
+
+.product_name {
+  color: black;
+  font-size: 1.1rem; /* smaller */
+  text-transform: capitalize;
+  font-weight: 500;
+}
+
+.card-title p {
+  font-size: 0.8rem; /* smaller */
+  font-weight: 500;
+}
+
+.remove-and-wish p {
+  font-size: 0.7rem; /* smaller */
+  margin-bottom: 0;
+}
+
+/* ===============================
+   Pricing & Quantity
+================================ */
+.price-money h3 {
+  font-size: 0.9rem; /* smaller */
+  font-weight: 600;
+}
+
+.set_quantity {
+  position: relative;
+}
+
+.price_indiv p {
+  font-size: 0.95rem; /* smaller */
+}
+
+/* ===============================
+   Pagination / Input
+================================ */
+.page-links {
+  width: 38px; /* smaller */
+  line-height: 14px;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #495057;
+}
+
+.page-item input {
+  padding: 2px;
+  line-height: 20px;
+  font-size: 0.85rem; /* smaller */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.page-link:hover {
+  text-decoration: none;
+  color: #495057;
+  outline: none !important;
+}
+
+.page-link:focus {
+  box-shadow: none;
+}
+
+/* ===============================
+   Icons
+================================ */
+.fa-heart:hover {
+  color: red;
+}

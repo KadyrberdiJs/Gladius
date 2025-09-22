@@ -21,6 +21,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'icomoon/icomoon.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/vendor.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cart.css' %}">
     <link rel="icon" type="image/x-icon" href="{% static 'images/icons/Gladius-icon.png' %}">
 
 </head>
@@ -46,6 +47,8 @@
 								</i><span>
 									(0 $)</span></a>
 									{% else %}
+									<a href="{% url "cart:cart-detail" %}" class="cart for-buy"><i class="icon icon-clipboard">
+								</i><span>
 									<a href="{% url "user:login" %}" class="">Войти</i>
 										{% endif %}
 										<div class="action-menu">
@@ -133,7 +136,7 @@
 									В созданной известным парфюмером Жаком Кавалье ароматической композиции красиво переплетаются освежающие цитрусовые ноты розового грейпфрута и бархатисто-пряного запаха древесины
 								</p>
 								<div class="btn-wrap">
-									<a href="{% url "catalog:product_detail" banner.slug %}" class="btn-accent-arrow">Читать больше<i
+									<a href="{% url "catalog:product_detail" banner.id %}" class="btn-accent-arrow">Читать больше<i
 											class="icon icon-ns-arrow-right"></i></a>
 								</div>
 							</div><!--banner-content-->
@@ -166,11 +169,11 @@
 										<div class="product-item">
 											<figure class="product-style">
 												<div class="product-image-container">
-													<a href="{% url "catalog:product_detail" parfume.slug %}">
+													<a href="{% url "catalog:product_detail" parfume.id %}">
 														<img src="{{ parfume.image.url }}" alt="{{ parfume.name }}" class="product-item"></a>
 												</div>
 												<figcaption>
-													<a href="{% url "catalog:product_detail" parfume.slug %}" class='text-decoration-none mb-0'>
+													<a href="{% url "catalog:product_detail" parfume.id %}" class='text-decoration-none mb-0'>
 														<h3 class='mb-0'>{{ parfume.name }}</h3>
 													</a>
 													<span>{{ parfume.brand_name }}</span>
@@ -243,7 +246,7 @@
 									<p>Isola Blu — это аромат про чистое небо, море и утончённую роскошь. Он пахнет как элитный отдых на берегу: цитрусы, морской ветер, лёгкая древесность. Подойдёт для тех, кто любит освежающие, но при этом статусные ароматы.</p>
 									<div class="item-price">m. {{ parfume.price }}</div>
 									<div class="btn-wrap">
-										<a href="{% url "catalog:product_detail" parfume.slug %}" class="btn-accent-arrow">Купить сейчас <i
+										<a href="{% url "catalog:product_detail" parfume.id %}" class="btn-accent-arrow">Купить сейчас <i
 											class="icon icon-ns-arrow-right"></i></a>
 										</div>
 									</div>
@@ -292,11 +295,11 @@
 										<div class="product-item">
 											<figure class="product-style">
 												<div class="product-image-container">
-													<a href="{% url "catalog:product_detail" parfume.slug %}">
+													<a href="{% url "catalog:product_detail" parfume.id %}">
 														<img src="{{ parfume.image.url }}" alt="{{ parfume.name }}" class="product-item"></a>
 												</div>
 												<figcaption>
-													<a href="{% url "catalog:product_detail" parfume.slug %}" class='text-decoration-none mb-0'>
+													<a href="{% url "catalog:product_detail" parfume.id %}" class='text-decoration-none mb-0'>
 														<h3 class='mb-0'>{{ parfume.name }}</h3>
 													</a>
 													<span>{{ parfume.brand_name }}</span>
