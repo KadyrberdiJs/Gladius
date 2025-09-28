@@ -84,22 +84,7 @@ class AddToCartView(CartMixin, View):
                 message=f"Товар добавлен"
             )
 
-    def handle_response(self, request, product, success, message):
-        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-            return JsonResponse({
-                'success': success,
-                'message': message
-            })
-        else:
-            if success:
-                messages.success(request, message)
-            else:
-                messages.error(request, message)
-            context = {
-                'parfume': product,
-                'title': product.name,
-            }
-            return render(request, 'parfumes/product.html', context)
+    
 
 
 
@@ -135,4 +120,16 @@ class CartDetailView(CartMixin, TemplateView):
       })
 
       return context
-  
+
+
+class CartRemoveView(CartMixin, View):
+    def post(self, request, item_id):
+        cart = self.get_or_create_cart(request)
+
+        cart_item = get_object_or_404(CartItem, id=item_id, cart=cart)
+
+        cart_item.delete()
+        return self.handle_response(
+                request, item_id, success=True,
+                message=f'Удален {cart_item.product_variant} из вашей корзины.'
+            )
