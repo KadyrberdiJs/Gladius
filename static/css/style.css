@@ -3176,53 +3176,57 @@ small {
 }
 
 .alert-container {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    pointer-events: none;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    position: fixed; /* Keep it in the middle of the screen */
+    top: 0;
+    left: 50%; /* Move to the middle horizontally */
+    transform: translateX(-50%); /* Offset to truly center */
+    width: 100%; /* Ensure it spans the full width */
+    height: 100%; /* Ensure it spans the full height */
+    z-index: 1000; /* Appear above other content */
+    pointer-events: none; /* Allow clicks to pass through container */
 }
 
 .alert {
-    background: rgba(0, 0, 0, 0.85);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    max-width: 150px;
-    text-align: center;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
-    pointer-events: auto;
-    opacity: 0;
-    animation: fadeInOut 5s ease-in-out;
+    background: rgba(0, 0, 0, 0.85); /* Semi-transparent black background */
+    color: white; /* White text */
+    padding: 8px 16px; /* Padding for spacing */
+    border-radius: 6px; /* Rounded corners */
+    font-family: Arial, sans-serif; /* Font style */
+    font-size: 14px; /* Font size */
+    max-width: 150px; /* Limit width */
+    text-align: center; /* Center text */
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15); /* Subtle shadow */
+    pointer-events: auto; /* Allow clicks on the alert */
+    opacity: 0; /* Start invisible for animation */
+    animation: fadeInOut 5s ease-in-out; /* 5-second fade animation */
 }
 
+/* Animation keyframes for fadeInOut */
+@keyframes fadeInOut {
+    0% { opacity: 0; } /* Start invisible */
+    10% { opacity: 1; } /* Fade in quickly */
+    90% { opacity: 1; } /* Stay visible most of the time */
+    100% { opacity: 0; } /* Fade out at the end */
+}
+
+/* Optional: Different styles for message types */
 .alert-success {
-    background: rgba(46, 204, 113, 0.9);
+    background: rgba(83, 224, 83, 0.85); /* Green for success */
 }
 
 .alert-error {
-    background: rgba(231, 76, 60, 0.9);
+    background: rgba(200, 0, 0, 0.85); /* Red for errors */
 }
 
-.close-alert {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-    margin-left: 8px;
-    vertical-align: middle;
-    line-height: 1;
+.alert-info {
+    background: rgba(0, 120, 200, 0.85); /* Blue for info */
 }
 
-@keyframes fadeInOut {
-    0% { opacity: 0; transform: translateY(-10px); }
-    10% { opacity: 1; transform: translateY(0); }
-    90% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(-10px); }
+.alert-warning {
+    background: rgba(255, 165, 0, 0.85); /* Orange for warnings */
 }
 
 /* Профиль */

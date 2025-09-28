@@ -102,8 +102,8 @@ class ProductVariant(models.Model):
       super().save(*args, **kwargs) 
 
 
-   def is_in_stock(self, qty):
-     return self.stock_quantity >= qty
+   def is_in_stock(self, quantity):
+     return self.stock_quantity >= quantity
   
    
 

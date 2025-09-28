@@ -33,7 +33,7 @@
 			</div>
       
 
-    <form action="{% url "cart:add_to_cart" product_id=parfume.id %}" method='post' id="add-to-cart-form">
+    <form action="{% url "cart:add_to_cart" parfume.id %}" method='post' id="add-to-cart-form">
 
       {% csrf_token %}
       <label>Выбери объем (ml):</label>
