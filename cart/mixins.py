@@ -19,7 +19,7 @@ class CartMixin:
         if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
             return JsonResponse({
                 'success': success,
-                'message': message
+                'message': message,
             })
         else:
             if success:

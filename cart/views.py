@@ -123,13 +123,24 @@ class CartDetailView(CartMixin, TemplateView):
 
 
 class CartRemoveView(CartMixin, View):
-    def post(self, request, item_id):
+    def get(self, request, item_id):
         cart = self.get_or_create_cart(request)
 
         cart_item = get_object_or_404(CartItem, id=item_id, cart=cart)
 
+        product_name = str(cart_item.product_variant)
+
         cart_item.delete()
-        return self.handle_response(
-                request, item_id, success=True,
-                message=f'Удален {cart_item.product_variant} из вашей корзины.'
-            )
+
+        message = f'Удален {product_name} из вашей корзины.'
+
+        if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+            # AJAX? Send JSON back to JS
+            return JsonResponse({
+                'success': True,
+                'message': message,
+            })
+        else:
+            # Regular request? Show message and redirect to cart
+            messages.success(request, message)
+            return redirect('cart:cart-detail')
