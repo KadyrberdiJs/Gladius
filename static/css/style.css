@@ -2771,6 +2771,10 @@ a:hover {
     height: 1.5rem;
   }
 }
+
+.remove-item-cart:hover {
+  color: #9D5248;
+}
 .card{
   margin: auto;
   margin-top: 10px;

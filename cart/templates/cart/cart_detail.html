@@ -30,8 +30,8 @@
  
 <div class="col-6 card-title">
 <h1 class="mb-4 product_name">{{ item.product_name }}</h1>
-<p class="mb-2">БРЕНД: {{ item.brand }}</p>
-<p class="mb-3">МЛ: {{ item.size_ml }}</p>
+<p class="mb-2 fs-6">БРЕНД: {{ item.brand }}</p>
+<p class="mb-3 fs-6">МЛ: {{ item.size_ml }}</p>
 </div>
 
 <!-- quantity inc dec -->
@@ -44,8 +44,10 @@
 </div>
 <!-- //remover move and price -->
 <div class="row">
-<div class="col-8 d-flex justify-content-between remove_wish">
-<a href="{% url "cart:cart-remove" item.item_id %}">{% csrf_token %}<i class="fas fa-trash-alt"></i> Убрать</a>
+    <div class="col-8 d-flex justify-content-between remove_wish">
+        <a href="{% url "cart:cart-remove" item.item_id %}" class="remove-item-cart">
+            {% csrf_token %}<i class="fas fa-trash-alt"></i> 
+            Убрать</a>
 </div>
 <div class="col-4 d-flex justify-content-end price_money">
 <h3>m. <span id="itemval">{{ item.unit_price }} </span></h3>
@@ -58,25 +60,25 @@
 <hr/>
 </div>
 <!-- right side div -->
-<div class="col-md-12 col-lg-4 col-11 mx-auto mt-lg-0 mt-md-5">
+<div class="col-md-12 col-lg-4 col-11 mx-auto mt-lg-0 mt-md-5 mb-5">
     <div class="right_side p-3 shadow bg-white">
-        <h2 class="product_name mb-5">The Total Amount Of</h2>
+        
         <div class="price_indiv d-flex justify-content-between">
-            <p>Product amount</p>
-            <p>m <span id="product_total_amt">0.00</span></p>
+            <h2 class="product_name mb-5">Общее количество парфюмов</h2> 
+            <h2><span id="product_total_amt">{{ total_items }}</span></h2>
         </div>
         <div class="price_indiv d-flex justify-content-between">
-            <p>Shipping Charge</p>
-            <p>m <span id="shipping_charge">50.0</span></p>
+            <h2 class="product_name mb-5">Стоимость доставки</h2> 
+            <h2><span id="product_total_amt">25</span></h2>
         </div>
-        <hr />
-        <div class="total-amt d-flex justify-content-between font-weight-bold">
-            <p>The total amount of (including VAT)</p>
-            <p>m <span id="total_cart_amt">0.00</span></p>
+        <div class="price_indiv d-flex justify-content-between">
+            <h2 class="product_name mb-5">Общая стоимость парфюмов</h2> 
+            <h2><span id="product_total_amt">{{ total_price }}</span></h2>
         </div>
-        <button class="btn btn-primary text-uppercase">Checkout</button>
+        <div class='text-center'>
+            <button class="btn-accent-arrow">Оформление заказа</button>
+        </div>
     </div>
-    
     
     
     <!-- discount code ends -->
@@ -89,8 +91,8 @@
 
 {% else %}
     <div style="text-align: center; padding: 50px;">
-        <p>Your cart is empty.</p>
-        <a href="{% url 'catalog:catalog_all' %}" class="btn btn-primary">Shop Now</a>
+        <p class='fs-1'>Ваша корзина пуста.</p>
+        <a href="{% url 'catalog:catalog_all' %}" class="btn-accent-arrow fs-4">Перейти к покупкам</a>
     </div>
 {% endif %}
 

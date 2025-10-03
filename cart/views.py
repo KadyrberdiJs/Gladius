@@ -107,8 +107,8 @@ class CartDetailView(CartMixin, TemplateView):
           'size_ml': item.product_variant.size_ml,
           'size_display': item.product_variant.get_size_ml_display(),
           'quantity': item.quantity,
-          'unit_price': item.product_variant.price,
-          'total_price': item.get_total_price(),
+          'unit_price': item.get_price(),
+          'total_price': cart.get_total_price(),
           'item_id': item.id,
         })
       context.update({

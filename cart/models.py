@@ -15,17 +15,12 @@ class Cart(models.Model):
       return f"Cart for {self.user.username}"
     return f'Анонимная корзина {self.id}'
   
-  def get_total_price(self):
-    total = 0
-    for item in self.items.all():
-      total += item.get_total_price()
-    return total
-  
   def get_total_items(self):
-    total = 0
-    for item in self.items.all():
-      total += item.quantity
-    
+    return sum(item.quantity for item in self.items.all())
+
+  def get_total_price(self):
+    return sum(item.get_price() for item in self.items.all())  
+  
 
 class CartItem(models.Model):
   cart = models.ForeignKey(to=Cart, on_delete=models.CASCADE, related_name='items')
@@ -39,5 +34,6 @@ class CartItem(models.Model):
   def __str__(self):
     return f"{self.quantity} x {self.product_variant}"
   
-  def get_total_price(self):
+  def get_price(self):
     return self.product_variant.price * self.quantity
+  
