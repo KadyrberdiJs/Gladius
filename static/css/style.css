@@ -2661,6 +2661,19 @@ span.prev-price {
   font-size: 28px;
 }
 
+.error-box {
+  background: #fff3f3;     /* very light red */
+  border: 1px solid #e0a8a8;
+  color: #a94442;
+  padding: 10px 15px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+.error-box p {
+  margin: 0 0 5px 0;
+}
+
+
 .form-control {
   border-radius: 10px;
   border: 1px solid #ddd;

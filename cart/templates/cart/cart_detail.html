@@ -6,16 +6,16 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-10 col-11 mx-auto">
+        <div class="almost-main col-md-10 col-11 mx-auto">
             
             <div class="row mt-5 gx-3">
 <!-- left side div -->
-<div class="col-md-12 col-lg-8 col-11 mx-auto main_cart mb-lg-0 mb-5 shadow">
+<div class="left-side col-md-12 col-lg-8 col-11 mx-auto main_cart mb-lg-0 mb-5 shadow">
     {% for item in items_data %}
 <div class="card p-4">
 <div class="row">
 <!-- cart images div -->
-<div class="col-md-5 col-11 mx-auto d-flex justify-content-center align-items-center product_img d-none d-sm-flex">
+<div class="cart-image col-md-5 col-11 mx-auto d-flex justify-content-center align-items-center product_img d-none d-sm-flex">
   <img src="{{ item.image.url }}" class="img-fluid" alt="cart img">
 </div>
 

@@ -133,7 +133,7 @@
 						<div class="slider-item">
 							<div class="banner-content">
 								<h2 class="banner-title">{{ banner.brand_name }} {{ banner.name }}</h2>
-								<p>
+								<p class="fs-6">
 									В созданной известным парфюмером Жаком Кавалье ароматической композиции красиво переплетаются освежающие цитрусовые ноты розового грейпфрута и бархатисто-пряного запаха древесины
 								</p>
 								<div class="btn-wrap">
@@ -244,7 +244,7 @@
 									{% for parfume in elite_parfumes %}
 									<div class="author-name">{{ parfume.brand_name }}</div>
 									<h3 class="item-title">{{parfume.name}}</h3>
-									<p>Isola Blu — это аромат про чистое небо, море и утончённую роскошь. Он пахнет как элитный отдых на берегу: цитрусы, морской ветер, лёгкая древесность. Подойдёт для тех, кто любит освежающие, но при этом статусные ароматы.</p>
+									<p class="fs-6">Isola Blu — это аромат про чистое небо, море и утончённую роскошь. Он пахнет как элитный отдых на берегу: цитрусы, морской ветер, лёгкая древесность. Подойдёт для тех, кто любит освежающие, но при этом статусные ароматы.</p>
 									<div class="item-price">m. {{ parfume.price }}</div>
 									<div class="btn-wrap">
 										<a href="{% url "catalog:product_detail" parfume.id %}" class="btn-accent-arrow">Купить сейчас <i
