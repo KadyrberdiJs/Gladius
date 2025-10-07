@@ -75,9 +75,9 @@
             <h2 class="product_name mb-5">Общая стоимость парфюмов</h2> 
             <h2><span id="product_total_amt">{{ total_price }}</span></h2>
         </div>
-        <div class='text-center'>
+        <a class='text-center' href="{% url "order:create_order" %}">
             <button class="btn-accent-arrow">Оформление заказа</button>
-        </div>
+        </a>
     </div>
     
     
