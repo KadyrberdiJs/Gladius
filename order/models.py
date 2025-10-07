@@ -4,13 +4,13 @@ from parfumes.models import Product
 from user.models import User
 
 
-class OrderItemQueryset(models.Queryset):
+class OrderItemQueryset(models.QuerySet):
   
   def get_total_items(self):
-    return sum(item.quantity for item in self.items.all())
+    return sum(item.quantity for item in self.orderitem_set.all())
 
   def get_total_price(self):
-    return sum(item.get_price() for item in self.items.all())  
+    return sum(item.price * item.quantity for item in self.orderitem_set.all())  
 
 
 

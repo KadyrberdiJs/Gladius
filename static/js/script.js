@@ -43,11 +43,11 @@
   var initScrollNav = function() {
     var scroll = $(window).scrollTop();
 
-    if (scroll >= 200) {
-      $('#header').addClass("fixed-top");
-    }else{
-      $('#header').removeClass("fixed-top");
-    }
+    // if (scroll >= 200) {
+    //   $('#header').addClass("fixed-top");
+    // }else{
+    //   $('#header').removeClass("fixed-top");
+    // }
   }
 
   $(window).scroll(function() {    

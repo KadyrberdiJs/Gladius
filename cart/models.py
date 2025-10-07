@@ -21,6 +21,11 @@ class Cart(models.Model):
   def get_total_price(self):
     return sum(item.get_price() for item in self.items.all())  
   
+  class Meta:
+        verbose_name = 'Корзина'
+        verbose_name_plural = 'Корзины'
+        ordering = ('id',)
+  
 
 class CartItem(models.Model):
   cart = models.ForeignKey(to=Cart, on_delete=models.CASCADE, related_name='items')
@@ -36,4 +41,9 @@ class CartItem(models.Model):
   
   def get_price(self):
     return self.product_variant.price * self.quantity
+  
+  class Meta:
+        verbose_name = 'Товар в корзинах'
+        verbose_name_plural = 'Товары в корзинах'
+        ordering = ('id',)
   
