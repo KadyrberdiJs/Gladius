@@ -6,7 +6,7 @@ from django.views.generic import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 
-from cart.models import Cart
+from cart.models import Cart, CartItem
 from order.froms import CreateOrderForm
 from order.models import Order, OrderItem
 
@@ -17,15 +17,16 @@ class CreateOrderView(LoginRequiredMixin, FormView):
 
   def get_initial(self):
     initial = super().get_initial()
-    initial['username'] = self.request.user.first_name
+    initial['username'] = self.request.user.username
     return initial
   
   def form_valid(self, form):
     try:
       user = self.request.user
-      cart_items = Cart.objects.filter(user=user)
+      cart = Cart.objects.get(user=user)
+      cart_items = cart.items.all()
 
-      if cart_items.exists():
+      if cart:
         # Создать заказ
         order = Order.objects.create(
           user=user,
@@ -35,21 +36,21 @@ class CreateOrderView(LoginRequiredMixin, FormView):
         )
 
         for cart_item in cart_items:
-          product = cart_item.items.product_variant
-          name = f"{cart_item.items.product_variant.product.name} - {cart_item.items.product_variant.get_size_ml_display()}"
-          price = cart_item.items.product_variant.product.sell_price()
+          product = cart_item.product_variant.product
+          name = f"{cart_item.product_variant.product.name} - {cart_item.product_variant.get_size_ml_display()}"
+          price = cart_item.product_variant.product.sell_price()
           quantity = cart_item.quantity
 
           OrderItem.objects.create(
             order=order,
-            produt=product,
+            product=product,
             name=name,
             price=price,
             quantity=quantity,
           )
           product.save()
         
-        cart_item.delete()
+        cart.delete()
 
         messages.success(self.request, "Заказ оформлен!")
         return redirect("user:profile")

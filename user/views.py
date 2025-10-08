@@ -1,11 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib import auth, messages
+from django.db.models import Sum
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib.auth.views import LoginView
 from django.views.generic import CreateView, TemplateView, UpdateView
 from django.urls import reverse, reverse_lazy
-
+from django.db.models import Sum, F, ExpressionWrapper, DecimalField
+from order.models import Order
 from user.forms import ProfileForm, UserLoginForm, UserRegisterForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -78,6 +80,29 @@ class UserProfileView(LoginRequiredMixin,UpdateView,):
    
    def get_context_data(self, **kwargs):
        context = super().get_context_data(**kwargs)
+
+       user = self.request.user
+
+        # Get all orders for the user
+       orders = Order.objects.filter(user=user).order_by('-created_timestamp')
+
+        # Add total quantity and total price for each order
+       orders_data = []
+       for order in orders:
+            # Calculate total quantity (sum of OrderItem.quantity)
+        total_quantity = order.orderitem_set.aggregate(total=Sum('quantity'))['total'] or 0
+            # Calculate total price (sum of OrderItem.price * OrderItem.quantity)
+        total_price = order.orderitem_set.aggregate(
+            total=Sum(ExpressionWrapper(F('price') * F('quantity'), output_field=DecimalField()))
+        )['total'] or 0
+        print(f"Order {order.id}: {total_quantity} items, ${total_price}")
+        orders_data.append({
+                'id': order.id,
+                'created_timestamp': order.created_timestamp,
+                'total_quantity': total_quantity,
+                'total_price': total_price,
+            })
+        
        context["title"] = 'Gladius - Кабинет'
        return context
 

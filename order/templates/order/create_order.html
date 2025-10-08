@@ -12,12 +12,12 @@
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="id_first_name" class="form-label">Имя*:</label>
-                            <input type="text" class="form-control" id="id_first_name"
-                                value="{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"
+                            <label for="username" class="form-label">Имя*:</label>
+                            <input type="text" class="form-control" id="id_username"
+                                value="{% if form.username.value %}{{ form.username.value }}{% endif %}"
                                 name="first_name" required>
-                            {% if form.first_name.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{form.first_name.errors}}</div>
+                            {% if form.username.errors %}
+                                <div class="alert alert-danger alert-dismissible fade show">{{form.username.errors}}</div>
                             {% endif %}
                         </div>
                         <div class="col-md-6 mb-3">
