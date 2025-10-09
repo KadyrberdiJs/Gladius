@@ -104,6 +104,7 @@ class UserProfileView(LoginRequiredMixin,UpdateView,):
             })
         
        context["title"] = 'Gladius - Кабинет'
+       context["orders_data"] = orders_data
        return context
 
 

@@ -38,7 +38,7 @@ class CreateOrderView(LoginRequiredMixin, FormView):
         for cart_item in cart_items:
           product = cart_item.product_variant.product
           name = f"{cart_item.product_variant.product.name} - {cart_item.product_variant.get_size_ml_display()}"
-          price = cart_item.product_variant.product.sell_price()
+          price = cart_item.product_variant.sell_price()
           quantity = cart_item.quantity
 
           OrderItem.objects.create(
